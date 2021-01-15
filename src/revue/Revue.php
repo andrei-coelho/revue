@@ -2,45 +2,41 @@
 
 class Revue {
 
+    private $module, $route;
+
     public function __construct(){
         $this -> start();
     }
 
     private function start(){
+        
         // aqui inicia o processo de criação de todas as
         // variáveis, objetos e configuração do app
-        
         Request::open();
-        
-        include "../app/components.php";
-        include "../app/routes.php";
-
+        Module::create();
+        Module::start(Request::get(0));
         $this->config();
+
     }
 
     private function config(){
-        // aqui ele chama um componente pricipal usando rotas
-        $tag  = Route::getRouteOf(Request::get(0));
-        Components::config($tag);
+
+        Module::config();
         $this->render();
+
     }
 
     private function render(){
-        Components::render();
+
+        
+        Module::render();
+        $this->close();
+    
     }
 
     private function close(){
-        // aqui ele fecha qualquer tipo de conexão aberta
-    }
-
-
-
-    private function web(){
-        // aqui ele gera todos os cabeçalhos web
-    }
-
-    private function api(){
-        // aqui ele gera todos os cabeçalhos api
+        // aqui ele fecha tudo e qualquer tipo de conexão aberta
+        // encerra a aplicação
     }
 
 

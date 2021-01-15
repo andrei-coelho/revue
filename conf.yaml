@@ -1,0 +1,31 @@
+# %YAML 1.2
+---
+
+production:      false
+url_production:  false
+url_development: http://localhost/revue/
+
+# banco de dados
+
+
+# modulos
+modules:
+
+  app:
+    includes:
+      - headers.php
+      - components.php
+      - routes.php
+    type: pattern
+    dir: app
+    class_name: Components
+  
+  api:
+    includes:
+      - headers.php
+      - routes.php
+    type: secondary
+    dir: api
+    class_name: API
+
+---

@@ -1,5 +1,11 @@
 <?php 
 
+// $dados = Model::from('classname')
+//          ->where('')
+//          ->order('')
+//          ->limit('')
+//          ->get();
+
 abstract class Model {
 
     public function json(){

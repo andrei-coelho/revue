@@ -1,6 +1,6 @@
 <?php 
 
-class Components {
+class Components implements ModuleInterface {
 
     private static $components = []; // componentes registrados
     private static $toRender = []; // componentes para renderizar
