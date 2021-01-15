@@ -4,21 +4,21 @@ class Route {
 
     private static $routes = [];
 
-    public static function page($route, $page){
+    public static function req($route, $target){
 
         if(is_array($route)){
             foreach ($route as $r) {
-                self::$routes[$r] = $page;
+                self::$routes[$r] = $target;
             }
         } else {
-            self::$routes[$route] = $page;
+            self::$routes[$route] = $target;
         }
 
     }
 
     public static function getRouteOf($route){
         if(!$route) $route = 'main';
-        return isset(self::$routes[$route]) ? self::$routes[$route] : "error404";
+        return isset(self::$routes[$route]) ? self::$routes[$route] : false;
     }
 
 }

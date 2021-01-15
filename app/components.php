@@ -37,4 +37,9 @@ Components::register([
         "file"       => "level2A",
     ],
 
+    "contato" => [
+        "controller" => "contato",
+        "file"       => "others/contato",
+    ],
+
 ]);

@@ -2,8 +2,8 @@
 ---
 
 production:      false
-url_production:  false
-url_development: http://localhost/revue/
+production_url:  http://localhost/revue/
+development_url: http://localhost/revue/
 
 # banco de dados
 

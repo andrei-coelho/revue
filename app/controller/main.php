@@ -1,5 +1,9 @@
 <?php 
 
+echo js();
+
+echo css();
+
 self::export("footer", [
     'number'   => 2,
     'callback' => function(){
@@ -7,8 +11,7 @@ self::export("footer", [
     }
 ]);
 
-
-
 self::data([
-    "nome" => "Andrei"
+    "nome" => "Andrei",
+    "img"  => url("img/test.jpg")
 ]);

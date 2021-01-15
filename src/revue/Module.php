@@ -8,10 +8,8 @@ class Module {
     private $atual_module;
 
     private function __construct(){
-        
-        $config = Config::create();
  
-        foreach ($config::get('modules') as $slug => $module) {
+        foreach (Config::get('modules') as $slug => $module) {
             if($module['type'] == 'pattern'){
                 $module['slug'] = $slug;
                 $this->pattern = $module;

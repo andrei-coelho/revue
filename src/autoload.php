@@ -1,5 +1,8 @@
 <?php 
 
+
+require "../src/helper.php";
+
 spl_autoload_register(function($class) {
 
     if(($str = strstr($class, "\\"))) $class = $str; 
@@ -16,3 +19,5 @@ spl_autoload_register(function($class) {
     }
 
 });
+
+Config::create();

@@ -1,2 +1,21 @@
+
+
+<script>
+var getJSON = function(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      var status = xhr.status;
+      callback(status, xhr.response);
+    };
+    xhr.send();
+};
+
+getJSON('http://vbcarreiras.siteseguro.ws/api/', (status, res) => {
+    console.log(res);
+})
+</script>
+
 <header>Im a header</header>
 <component>menu</component>

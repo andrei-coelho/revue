@@ -1,6 +1,6 @@
 <?php 
 
-$vars = self::getData('footer');
+$vars = self::getData();
 
 self::export('level2A', [
     'say' => "olá mundão!!!"

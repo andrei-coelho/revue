@@ -4,10 +4,13 @@ class Components implements ModuleInterface {
 
     private static $components = []; // componentes registrados
     private static $toRender = []; // componentes para renderizar
+    private static $atualComp; // componente atual
+
     private static $js = []; // todos os javascripts
     private static $css = []; // todos os css
+    
     private static $exports = []; // variaveis passadas entre componentes
-    private static $tempData = [];
+    private static $tempData = []; // variaveis que serão usadas no html
 
     public static function register(array $data){
         /** Example:
@@ -27,12 +30,8 @@ class Components implements ModuleInterface {
 
 
     private static function data(array $vars){
-        // TODO: 
-        // se estiver em modo de desenvolvimento
-        // mostrar os erros
-
+       
         self::$tempData = $vars;
-
     }
 
 
@@ -40,17 +39,21 @@ class Components implements ModuleInterface {
 
         // TODO: 
         // se estiver em modo de desenvolvimento
-        // mostrar os erros      
+        // mostrar os erros  
+            
+        // verificar se o component foi registrado
 
         self::$exports[$to] = $vars;
     }
 
-    private static function getData($to){
+    private static function getData(){
 
         // TODO: 
         // se estiver em modo de desenvolvimento
         // mostrar os erros
-        return self::$exports[$to];
+        return isset(self::$exports[self::$atualComp]) 
+               ? self::$exports[self::$atualComp]
+               : false;
     }
 
     public static function config($tag){
@@ -58,6 +61,7 @@ class Components implements ModuleInterface {
         $comp = isset(self::$components[$tag]) ? 
                 self::$components[$tag] : 
                 false;
+        
         if($comp) {
 
             $file = "../app/components/".$comp['file'].".html";
@@ -122,9 +126,10 @@ class Components implements ModuleInterface {
 
     public static function render(){
         $html = [];
-        foreach (self::$toRender as $tag => $comp)
+        foreach (self::$toRender as $tag => $comp){
+            self::$atualComp = $tag;
             $html[$tag] = self::generate_html($comp);
-        
+        }
         $html = self::merge($html);
     }
 
@@ -177,6 +182,26 @@ class Components implements ModuleInterface {
             break;
         }
 
+    }
+
+    public static function js_files(){
+
+        $files = [];
+        foreach (self::$js as $js) {
+            $files[] = Config::url()."js/".$js.".js";
+        }
+
+        return $files;
+    }
+
+    public static function css_files(){
+
+        $files = [];
+        foreach (self::$css as $css) {
+            $files[] = Config::url()."css/".$css.".css";
+        }
+        
+        return $files;
     }
 
 }

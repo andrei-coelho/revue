@@ -4,4 +4,5 @@
  */
 
 
-Route::page(['main', 'home'], 'home');
+Route::req(['main', 'home'], 'home');
+Route::req(['contato'], 'contato');

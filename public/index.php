@@ -16,5 +16,4 @@
  * */
 
 require "../src/autoload.php";
-require "../src/helper.php";
 new Revue();
