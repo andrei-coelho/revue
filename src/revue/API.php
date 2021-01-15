@@ -14,7 +14,7 @@
 
 class API implements ModuleInterface {
 
-    private static $response;
+    private static $response = false;
 
     public static function config($route){
         
@@ -27,9 +27,9 @@ class API implements ModuleInterface {
 
     }
 
-    public static function render(){
+    public static function render($json = false){
 
-        if(self::$response){
+        if(!$json && self::$response){
             echo json_encode(self::$response, 
                 JSON_PRETTY_PRINT | 
                 JSON_PRESERVE_ZERO_FRACTION | 
@@ -38,6 +38,13 @@ class API implements ModuleInterface {
             );
         }
         
+        if($json){
+            return json_encode($json, 
+                JSON_PRESERVE_ZERO_FRACTION | 
+                JSON_PARTIAL_OUTPUT_ON_ERROR |
+                JSON_UNESCAPED_UNICODE
+            );
+        }
     }
 
     private static function response($data){

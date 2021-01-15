@@ -1,6 +1,13 @@
 
-
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
 <script>
+  
 var getJSON = function(url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -12,7 +19,7 @@ var getJSON = function(url, callback) {
     xhr.send();
 };
 
-getJSON('http://vbcarreiras.siteseguro.ws/api/', (status, res) => {
+getJSON('http://localhost/revue/api/', (status, res) => {
     console.log(res);
 })
 </script>

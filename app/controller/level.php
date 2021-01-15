@@ -1,6 +1,6 @@
 <?php 
 
-$array = self::getData('level2A');
+$array = self::receive();
 
 self::data([
     'say' => $array['say']

@@ -19,13 +19,16 @@ class Request {
     }
 
     public static function open(){
+
         if(!self::$instance){
             self::$instance = new Request();
         }
+
         return self::$instance;
     }
 
     public function getCount(){
+
         return count($this->gets);
     }
    
@@ -34,6 +37,7 @@ class Request {
         if($key > -1)
             return isset(self::$instance->gets[$key]) ? 
             self::$instance->gets[$key] : false;
+
         return self::$instance->gets;
 
     }
@@ -43,6 +47,7 @@ class Request {
         if($key != "")
             return isset(self::$instance->posts[$key]) ? 
             self::$instance->posts[$key] : false;
+
         return count(self::$instance->posts) > 0 ? self::$instance->posts : false;
 
     }
@@ -52,6 +57,7 @@ class Request {
         if($key != "")
             return isset(self::$instance->posts[$key]) ? 
             self::$instance->posts[$key] : false;
+            
         return count(self::$instance->posts) > 0 ? self::$instance->posts : false;
 
     }

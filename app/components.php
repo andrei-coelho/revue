@@ -9,15 +9,15 @@ Components::register([
     "home" => [
         "controller" => "main",
         "file"       => "home",
-        "js"         => ["file1", "file2"],
-        "css"        => ["file1", "file2"],
+        "js"         => ["file1"],
+        "css"        => ["file2"],
     ],
 
     "footer" => [
         "controller" => "footer",
         "file"       => "footer",
-        "js"         => ["file1", "file2", "file3"],
-        "css"        => ["file1", "file2", "file3"],
+        "js"         => ["file1"],
+        "css"        => ["file2"],
     ],
 
     "header" => [

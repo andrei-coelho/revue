@@ -1,10 +1,26 @@
 <?php 
 
-echo js();
+$css = css();
 
-echo css();
+$lista = [
+    [
+        "nome" => "Andrei",
+        "idade" => 30
+    ],
+    [
+        "nome" => "Gustavo",
+        "idade" => 28
+    ]
+];
 
-self::export("footer", [
+
+self::export("lista", $lista);
+
+self::export("user", [
+    "nome" => "Andrei"
+]);
+
+self::send("footer", [
     'number'   => 2,
     'callback' => function(){
         return 'chamou a função de callback';

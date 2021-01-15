@@ -11,6 +11,7 @@ class Components implements ModuleInterface {
     
     private static $exports = []; // variaveis passadas entre componentes
     private static $tempData = []; // variaveis que serão usadas no html
+    private static $ObjJsonList = []; // lista de ObjJson para ser gerado o json final
 
     public static function register(array $data){
         /** Example:
@@ -28,6 +29,10 @@ class Components implements ModuleInterface {
 
     }
 
+    private static function export($key, $vars){
+        self::$ObjJsonList[$key] = new ObjJson($key, $vars);
+    }
+
 
     private static function data(array $vars){
        
@@ -35,18 +40,18 @@ class Components implements ModuleInterface {
     }
 
 
-    private static function export(string $to, array $vars){
+    private static function send(string $to, array $vars){
 
         // TODO: 
         // se estiver em modo de desenvolvimento
         // mostrar os erros  
-            
+
         // verificar se o component foi registrado
 
         self::$exports[$to] = $vars;
     }
 
-    private static function getData(){
+    private static function receive(){
 
         // TODO: 
         // se estiver em modo de desenvolvimento
@@ -176,6 +181,15 @@ class Components implements ModuleInterface {
                 }
             }
         }
+
+        $scriptObjs  = "<script>";
+        $scriptObjs .= "const URL = '".Config::url()."';";
+        $scriptObjs .= "const Revue = {";
+        foreach(self::$ObjJsonList as $obj){
+            $scriptObjs .= $obj->render();
+        }
+        $scriptObjs = substr($scriptObjs, 0, -1)."}</script>";
+        echo $scriptObjs;
 
         foreach(array_reverse($changed) as $ch){
             echo $ch;

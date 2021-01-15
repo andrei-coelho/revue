@@ -1,13 +1,14 @@
 <?php 
 
-$vars = self::getData();
+$vars = self::receive();
 
-self::export('level2A', [
+self::send('level2A', [
     'say' => "olá mundão!!!"
 ]);
 
 
 self::data([
     "func" => $vars["callback"](),
-    "num"  => $vars['number']
+    "num"  => $vars['number'],
+    "js"   => js()
 ]);

@@ -17,7 +17,9 @@ class Route {
     }
 
     public static function getRouteOf($route){
+
         if(!$route) $route = 'main';
+        
         return isset(self::$routes[$route]) ? self::$routes[$route] : false;
     }
 
