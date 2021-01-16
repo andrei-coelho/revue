@@ -172,34 +172,22 @@ class Components implements ModuleInterface {
 
             $component = self::$toRender[$tag];
             
-
             if(isset($component['to_replace'])){
 
                 foreach($component['to_replace'] as $to_replace){
                     
                     if(isset($changed[$to_replace['tag_comp']])){
-                        $parent = $changed[$to_replace['tag_comp']];
-                        $replace = $to_replace['tag_html'];
-                        $changed[$tag] = str_replace($replace, $parent, $html);
+                        $changed[$tag] = str_replace($to_replace['tag_html'], $changed[$to_replace['tag_comp']], $html);
                     }
                     
                 }
             }
         }
 
-        $scriptObjs  = "<script>";
-        $scriptObjs .= "const URL = '".Config::url()."';";
-        $scriptObjs .= "const Revue = {";
-        foreach(self::$ObjJsonList as $obj){
-            $scriptObjs .= $obj->render();
-        }
-        $scriptObjs = substr($scriptObjs, 0, -1)."}</script>";
-        echo $scriptObjs;
+        $scriptObjs = "<script> const URL = '".Config::url()."'; const Revue = {";
+        foreach(self::$ObjJsonList as $obj) $scriptObjs .= $obj->render();
 
-        foreach(array_reverse($changed) as $ch){
-            echo $ch;
-            break;
-        }
+        echo substr($scriptObjs, 0, -1)."}</script>".array_pop($changed);
 
     }
 

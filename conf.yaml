@@ -15,7 +15,6 @@ modules:
     includes:
       - headers.php
       - components.php
-      - routes.php
     type: pattern
     dir: app
     class_name: Components
@@ -23,7 +22,6 @@ modules:
   api:
     includes:
       - headers.php
-      - routes.php
     type: secondary
     dir: api
     class_name: API

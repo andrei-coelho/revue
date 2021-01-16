@@ -33,8 +33,19 @@ class Request {
 
         return count($this->gets);
     }
+
+    public static function saveSlugGets(array $gets){
+ 
+        foreach ($gets as $key => $slug) {
+
+            if($v = self::get($key)) {
+                @self::$instance->gets[$slug] = $v;
+            }
+        }
+
+    }
    
-    public static function get(int $key = -1){
+    public static function get($key = -1){
 
         if($key > -1)
             return isset(self::$instance->gets[$key]) ? 

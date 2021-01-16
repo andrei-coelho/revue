@@ -13,8 +13,9 @@ class Module {
         
         foreach (\Revue\Config::get('modules') as $slug => $module) {
             
+            $module['slug'] = $slug;
+
             if($module['type'] == 'pattern'){
-                $module['slug'] = $slug;
                 $this->pattern = $module;
             }
             else {
@@ -41,23 +42,33 @@ class Module {
             $module = self::$instance->pattern;
         }
 
-        foreach ($module['includes'] as $value) {
-            include "../".$module['dir']."/".$value;
-        }
+        include "../".$module['dir']."/routes.php";
 
         self::$instance->atual_module = $module;
     }
 
+    public static function getSlug(){
+        if(self::$instance->atual_module)
+            return self::$instance->atual_module['slug'];
+    }
+
     public static function config(){
-        $class = "Revue\\modules\\".self::$instance->atual_module['class_name'];
+
+        $module = self::$instance->atual_module;
+
+        foreach ($module['includes'] as $value) {
+            include "../".$module['dir']."/".$value;
+        }
+
+        $class = "Revue\\modules\\".$module['class_name'];
         $objTest = new $class();
         self::config_module($objTest, $class);
     }
 
     private static function config_module(\Revue\modules\ModuleInterface $objTest, string $module){
         $index = self::$instance->atual_module['type'] != "pattern" ? 1 : 0;
-        $route = Route::getRouteOf(Request::get($index));
-        $module::config($route);
+        $target = Route::getTarget();
+        $module::config($target);
     }
 
     public static function render(){

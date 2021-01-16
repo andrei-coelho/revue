@@ -43,6 +43,7 @@ class API implements ModuleInterface {
     }
 
     private static function response($data){
+
         self::$response = [
             "error" => false,
             "code"  => 200,
@@ -51,6 +52,7 @@ class API implements ModuleInterface {
     }
 
     private static function error($number){
+        
         self::$response = [
             "error" => true,
             "code"  => $number,

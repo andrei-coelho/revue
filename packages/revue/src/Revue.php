@@ -4,8 +4,6 @@ namespace Revue\src;
 
 class Revue {
 
-    private $module, $route;
-
     public function __construct(){
         $this -> start();
     }
@@ -17,7 +15,25 @@ class Revue {
         Request::open();
         Module::create();
         Module::start(Request::get(0));
-        $this->config();
+        $this->before_config();
+
+    }
+
+    private function before_config(){
+        
+        $status = Middleware::start(Route::getMiddleware());
+        
+        switch ($status) {
+            case 'continue':
+                $this->config();
+                break;
+            case 'redirect':
+                header("Location: ".\Revue\Config::url().Middleware::getRedir());
+                break;
+            default:
+                $this->config();
+                break;
+        }
 
     }
 
@@ -30,7 +46,6 @@ class Revue {
 
     private function render(){
 
-        
         Module::render();
         $this->close();
     

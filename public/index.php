@@ -10,9 +10,10 @@
  *         ┗━┛┗┛━┻━┛━━━┛━ ┗┗━━┛━┛
  *
  *         andreifcoelho@gmail.com
- *         github.com/andrei-coelho
+ *   https://github.com/andrei-coelho/revue
  *
- *
+ *       version: v0.0.1 - Build
+ * 
  * */
 
 require "../packages/autoload.php";
