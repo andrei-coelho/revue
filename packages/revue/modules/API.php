@@ -11,6 +11,8 @@
  * 
  */
 
+namespace Revue\modules;
+
 
 class API implements ModuleInterface {
 
@@ -27,9 +29,9 @@ class API implements ModuleInterface {
 
     }
 
-    public static function render($json = false){
+    public static function render(){
 
-        if(!$json && self::$response){
+        if(self::$response){
             echo json_encode(self::$response, 
                 JSON_PRETTY_PRINT | 
                 JSON_PRESERVE_ZERO_FRACTION | 
@@ -38,13 +40,6 @@ class API implements ModuleInterface {
             );
         }
         
-        if($json){
-            return json_encode($json, 
-                JSON_PRESERVE_ZERO_FRACTION | 
-                JSON_PARTIAL_OUTPUT_ON_ERROR |
-                JSON_UNESCAPED_UNICODE
-            );
-        }
     }
 
     private static function response($data){

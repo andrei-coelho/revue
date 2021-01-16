@@ -4,7 +4,7 @@
  * Components of Webpage
  */
 
-Components::register([
+Revue\modules\Components::register([
 
     "home" => [
         "controller" => "main",

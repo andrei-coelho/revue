@@ -6,6 +6,8 @@
 //          ->limit('')
 //          ->get();
 
+namespace Revue\src;
+
 abstract class Model {
 
     public function json(){

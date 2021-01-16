@@ -15,5 +15,5 @@
  *
  * */
 
-require "../src/autoload.php";
-new Revue();
+require "../packages/autoload.php";
+new Revue\src\Revue();

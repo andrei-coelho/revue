@@ -2,6 +2,8 @@
 
 // TODO -> sessions e cookies
 
+namespace Revue\src;
+
 class Request {
 
     private $gets = [], $posts = [], $inputs = [];
@@ -21,7 +23,7 @@ class Request {
     public static function open(){
 
         if(!self::$instance){
-            self::$instance = new Request();
+            self::$instance = new self();
         }
 
         return self::$instance;

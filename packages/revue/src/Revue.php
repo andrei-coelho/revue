@@ -1,5 +1,7 @@
 <?php 
 
+namespace Revue\src;
+
 class Revue {
 
     private $module, $route;

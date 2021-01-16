@@ -1,5 +1,7 @@
 <?php 
 
+namespace Revue\src;
+
 class Module {
 
     private static $instance = false;
@@ -8,8 +10,9 @@ class Module {
     private $atual_module;
 
     private function __construct(){
- 
-        foreach (Config::get('modules') as $slug => $module) {
+        
+        foreach (\Revue\Config::get('modules') as $slug => $module) {
+            
             if($module['type'] == 'pattern'){
                 $module['slug'] = $slug;
                 $this->pattern = $module;
@@ -24,8 +27,9 @@ class Module {
 
 
     public static function create(){
+        
         if(!self::$instance)
-            self::$instance = new Module();
+            self::$instance = new self();
         return self::$instance;
     }
 
@@ -45,19 +49,19 @@ class Module {
     }
 
     public static function config(){
-        $class = self::$instance->atual_module['class_name'];
+        $class = "Revue\\modules\\".self::$instance->atual_module['class_name'];
         $objTest = new $class();
         self::config_module($objTest, $class);
     }
 
-    private static function config_module(ModuleInterface $objTest, string $module){
+    private static function config_module(\Revue\modules\ModuleInterface $objTest, string $module){
         $index = self::$instance->atual_module['type'] != "pattern" ? 1 : 0;
         $route = Route::getRouteOf(Request::get($index));
         $module::config($route);
     }
 
     public static function render(){
-        $class = self::$instance->atual_module['class_name'];
+        $class = "Revue\\modules\\".self::$instance->atual_module['class_name'];
         $class::render();
     }
 

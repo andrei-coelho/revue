@@ -1,5 +1,6 @@
 <?php 
 
+namespace Revue\src;
 
 class ObjJson {
 
@@ -12,9 +13,20 @@ class ObjJson {
     }
 
     public function render(){
-        $json = API::render($this->data);
+
+        $json = $this->json($this->data);
         $const = " ".$this->key." : ";
+
         return $const.$json.",";
+    }
+
+    private function json($json){
+
+        return json_encode($json, 
+            JSON_PRESERVE_ZERO_FRACTION | 
+            JSON_PARTIAL_OUTPUT_ON_ERROR |
+            JSON_UNESCAPED_UNICODE
+        );
     }
 
 }

@@ -28,4 +28,7 @@ modules:
     dir: api
     class_name: API
 
+pack:
+  - revue
+
 ---

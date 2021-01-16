@@ -1,5 +1,6 @@
 <?php 
 
+namespace Revue;
 
 class Config {
 
@@ -8,7 +9,7 @@ class Config {
 
     private function __construct(){
 
-        $this->data = Spyc::YAMLLoad('../conf.yaml');
+        $this->data = src\Spyc::YAMLLoad('../conf.yaml');
 
         $this->url  = $this->data['production'] 
                     ? $this->data['production_url']
@@ -25,13 +26,14 @@ class Config {
     }
 
     public static function get(string $key = ""){
-
+        
         $conf = self::$instance->data;
 
         if($key != "") 
             return (isset($conf[$key]) 
                         ? $conf[$key] 
                         : false);
+                        
         return $conf;
     }
 
@@ -43,6 +45,11 @@ class Config {
     public static function is_in_production(){
 
         return self::$instance->data['production'];
+    }
+
+    public static function is_pack($pack){
+
+        return in_array($pack, self::$instance->data['pack']);
     }
 
 }

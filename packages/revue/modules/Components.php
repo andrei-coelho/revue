@@ -1,5 +1,10 @@
 <?php 
 
+namespace Revue\modules;
+
+use Revue\src\ObjJson as ObjJson;
+use Revue\Config as Config;
+
 class Components implements ModuleInterface {
 
     private static $components = []; // componentes registrados
