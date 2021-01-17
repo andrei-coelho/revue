@@ -9,9 +9,9 @@ class Revue {
     }
 
     private function start(){
-        
         // aqui inicia o processo de criação de todas as
         // variáveis, objetos e configuração do app
+        DataBase::open_links();
         Request::open();
         Module::create();
         Module::start(Request::get(0));

@@ -6,7 +6,15 @@ production_url:  http://localhost/revue/
 development_url: http://localhost/revue/
 
 # banco de dados
-
+database:
+  default:
+    driver: mysql
+    host: localhost
+    dbname: mydb
+    user: root
+    pass:
+    charset: utf8
+    port:
 
 # modulos
 modules:
@@ -26,7 +34,8 @@ modules:
     dir: api
     class_name: API
 
+# pacotes
 pack:
   - revue
-
+  - sqli
 ---

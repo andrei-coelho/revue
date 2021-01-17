@@ -12,7 +12,7 @@
  *         andreifcoelho@gmail.com
  *   https://github.com/andrei-coelho/revue
  *
- *       version: v0.0.1 - Build
+ *       version: v0.0.2 - Build
  * 
  * */
 

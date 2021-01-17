@@ -35,7 +35,6 @@ spl_autoload_register(function($class) {
 
     $parts     = explode("\\", $class);
     $realClass = array_pop($parts);
-
     $pack  = "";
     $realPack = "";
 
@@ -45,11 +44,12 @@ spl_autoload_register(function($class) {
         $pack .= $el."/";
     }
 
-    $file  = "../packages/".$pack."/".$realClass.".php";
+    $file  = "../packages/".$pack.$realClass.".php";
 
     if(Config::is_pack($realPack) && file_exists($file) && !class_exists($class)){
         include $file;
     } else {
+        echo "";
         // verifica se não está em produção e mostra o erro
     }
 

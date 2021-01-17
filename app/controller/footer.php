@@ -1,5 +1,5 @@
 <?php 
-
+/*
 $vars = self::receive();
 
 self::send('level2A', [
@@ -12,3 +12,4 @@ self::data([
     "num"  => $vars['number'],
     "js"   => js()
 ]);
+*/
