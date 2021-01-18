@@ -10,6 +10,7 @@ class Route {
     private static $request = false;
     private static $target = false;
     private static $midware = false;
+    private static $ignore = "";
 
     public static function req(string $route, string $target){  
         
@@ -19,13 +20,15 @@ class Route {
             self::$request = implode("/", Request::get());
         }
 
+        self::$request = str_replace(self::$ignore, "", self::$request);
+        
         if(self::$request == "" && self::is_main($route)){
             self::$target = $target;
             return;
         }
 
         if(self::is_regex($route)){
-
+            
             $data = self::tranform_data($route);
             $vars = [];
             
@@ -102,6 +105,10 @@ class Route {
     public static function getTarget(){
 
         return self::$target;
+    }
+
+    public static function ignore($ignore){
+        self::$ignore = $ignore;
     }
 
     private static function tranform_data($reg){

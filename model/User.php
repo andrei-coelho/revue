@@ -14,8 +14,10 @@ class User extends Revue\src\Model {
     /**
      * @model-join: Endereco
      */
-    public $address = [1];
-
+    public $address = [
+        "limit" => 2,
+        "order" => "id"
+    ];
 
     function __construct($nomeUser){
         $this->nomeUser = $nomeUer;

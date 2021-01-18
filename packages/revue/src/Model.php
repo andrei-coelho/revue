@@ -1,12 +1,23 @@
 <?php 
 
-// $dados = Model::select('classname')
-//          ->where('')
-//          ->order('')
-//          ->limit('')
-//          ->get();
-
 namespace Revue\src;
+
+use SQLi\SQLi as sqli;
+
+/**
+ * Bloqueia a exibição de variáveis em JSON
+ * 
+ * @block pattern
+ * @block clone
+ * @block fromConstructor
+ * @block dataInfo
+ * @block query
+ * @block className
+ * @block is_model
+ * @block attrs
+ * @block joins
+ * 
+ */
 
 abstract class Model {
 
@@ -18,138 +29,48 @@ abstract class Model {
 
     // public static $prefix = "";
 
-    protected $id = 0;
+    public $id = 0;
+
     protected $clone; // para o update e segurança
     protected $fromConstructor = true;
 
     protected $dataInfo;
-    protected $strSelect;
+    protected $query;
+    protected $className;
+    protected $is_model = false;
 
-    public static function select($className){
-        // verifica se a classe extende de Model
-        // salva os dados após a leitura da diretiva
-        // retorna uma instancia da classe
-        $data = self::read_class($className);
-        $sql  = "";
-
-        foreach ($data as $key => $value) {
-            print_r($value);echo "<br>";
-            // echo "<br>";
-        }
-    }
+    protected $attrs = [];
+    protected $joins = [];
 
 
-    /// LENDO A CLASSE
-
-    private static function read_class($className){
-
-        $reflc = new \ReflectionClass($className);
-        
-        if(!$reflc->getParentClass()->name == 'Revue\src\Model'){
-            return ['is_model' => false];
-        }
-
-        $data['table_name'] = preg_match(
-                '/@model-table:\s*(\w+)/', 
-                $reflc->getDocComment(), 
-                $out
-            ) ? $out[1] : strtolower($className);
-        
-        $data['attr'] = [];
-
-        $valuesProp = $reflc->getDefaultProperties();
-       
-        foreach ($reflc->getProperties() as $k => $prop) {
-
-            if($prop->class == $className){
-                
-                $prop->setAccessible(true);
-
-                preg_match(
-                    '/@model-(attr|join):\s*(\w+)/', 
-                    $prop->getDocComment(), 
-                    $out
-                );
-
-                $join = isset($out[1]) && $out[1] == "join" 
-                      ? self::read_class($out[2])
-                      : null;
-
-                     
-                $data['attr'][$prop->name] = [
-                    "render"   => isset($out[1]) ? $out[1] : false,
-                    "value"    => isset($out[1]) ? $out[2] : "",
-                    "is_array" => is_array($valuesProp[$prop->name]),
-                    "qtd"      => is_array($valuesProp[$prop->name]) ? $valuesProp[$prop->name][0] : 0,
-                    "join"     => $join,
-                    'is_model' => true
-                ];
-                
-            }
-
-        }
-        
-        return $data;
-
-    }
-
-
-
-
-
-
-    /// FUNÇÕES DO OBJETO FILHO
-
-    public function json(){
-        // retorna os dados em json do array de objetos do model filho
-        echo "json";
-    }
 
     public function get(){
         // retorna um array de objetos do model filho
-    }
+        // $table = $join['join']->dataInfo['table_name'];
+        $res  = sqli::query($this->query);
+        $list = [];
 
-    public function where(array $args){
-
-        $this->fromConstructor = false;
-
-        $example1 = [
-            //WHERE
-
-            [// group 1
-                
-                "slug", "=", "slug1",
-                // AND
-                "total", ">", 200.50 
-            ],
-           // OR
-            [ // group 2
-                
-                "slug", "=", "slug2",
-                // AND
-                "total", "<", 340 
-            ]
-
-        ];
-        // saída: 
-        // ... WHERE (slug = 'slug1' AND total > 200.50) OR (slug = 'slug2' AND total < 340)
-
-        // seta o as condições do select
-        // retorna os dados em array o model filho
-    }
-
-    public function order(string $by){
-
-        $example = "something DESC";
-        // saída
-        // ORDER BY something DESC
-
-        // orderna o resultado por um attr 
+        if($res){
+            $data = $res->fetchAllAssoc();
+            $list = $this->generate_objs($data);
+        } else {
+            /// TODO - mostra erro
+            
+        }
         
+        return $list;
     }
 
-    public function limit(int $limit){
-        // seta a quantidade máxima
+    public function order(string $by, $join = ""){
+
+        $this->query .= "ORDER BY ".$by." ";
+        return $this;
+
+    }
+
+    public function limit(string $limit){
+        $this->query .= "LIMIT ".$limit;
+        return $this;
     }
 
     public function update(){
@@ -167,5 +88,253 @@ abstract class Model {
     public function delete(){
         // deleta um registro no banco de dados
     }
+
+    public static function select($className){
+        // verifica se a classe extende de Model
+        // salva os dados após a leitura da diretiva
+        // retorna uma instancia da classe
+        $obj = self::read_class($className);
+        if(!$obj->is_model){
+            // TODO: mostra erro em desenvolvimento
+            return null;
+        }
+        
+        return $obj;
+    }
+
+
+
+    /// FUNÇÕES AUXILIARES
+
+    private static function read_class($className){
+
+        $reflc = new \ReflectionClass($className);
+        $obj = $reflc->newInstanceWithoutConstructor();
+        $obj ->fromConstructor = false;
+        $obj ->className = $className;
+
+        if(!$reflc->getParentClass()->name == 'Revue\src\Model'){
+            return $obj;
+        }
+
+        $data['table_name'] = preg_match(
+                '/@model-table:\s*(\w+)/', 
+                $reflc->getDocComment(), 
+                $out
+            ) ? $out[1] : strtolower($className);
+        
+        $data['attr'] = [];
+
+        $valuesProp = $reflc->getDefaultProperties();
+       
+        foreach ($reflc->getProperties() as $k => $prop) {
+
+            if($prop->name == "id" || $prop->class == $className){
+                
+                $prop->setAccessible(true);
+                
+                if($prop->name != "id"){
+
+                    preg_match(
+                        '/@model-(attr|join|foreign):\s*(\w+)/', 
+                        $prop->getDocComment(), 
+                        $out
+                    );
+    
+                    $join = isset($out[1]) && $out[1] == "join" 
+                          ? self::read_class($out[2])
+                          : false;
+    
+                } else {
+                    $out    = [];
+                    $out[1] = "attr";
+                    $out[2] = "id";
+                }
+                
+                $isarr = is_array($valuesProp[$prop->name]); 
+                     
+                $data['attr'][$prop->name] = [
+                    "render"   => isset($out[1]) ? $out[1] : false,
+                    "name"     => isset($out[1]) ? $out[2] : "",
+                    "prop"     => $prop->name,
+                    "is_array" => $isarr,
+                    "limit"    => $isarr && isset($valuesProp[$prop->name]['limit']) ? $valuesProp[$prop->name]['limit'] : 0,
+                    "order"    => $isarr && isset($valuesProp[$prop->name]['order']) ? $valuesProp[$prop->name]['order'] : 0,
+                    "join"     => $join
+                ];
+                
+                $obj->dataInfo = $data;
+                $obj->is_model = true;
+
+            }
+
+        }
+
+        $table = $obj->dataInfo['table_name'];
+        
+        foreach ($obj->dataInfo['attr'] as $att) {
+            
+            if(!$att['render']) continue;
+            
+            if($att['render'] == "join") {
+                $obj->joins[$att['name']] = $att;
+                continue;
+            }
+
+            $obj->attrs[$att['name']] = $att;
+
+        }
+
+        $sql = "SELECT ";
+        $atts = $table.".".implode(", ".$table.".", array_column($obj->attrs, 'name'));
+        $sql .= $atts." FROM ".$table." ";
+
+        $obj->query = $sql;
+        
+        return $obj;
+
+    }
+
+
+    private function generate_objs(array $datas){
+        
+        $idsPrimary = array_column($datas, "id");
+        $idTotal = count($idsPrimary);
+        
+        $where = [];
+        $tableName = "id_".$this->dataInfo['table_name'];
+        
+        foreach ($idsPrimary as $id) {
+            $where[] = $tableName;
+            $where[] = "=";
+            $where[] = $id;
+            $where[] = "OR";
+        }
+
+        array_pop($where);
+
+        $listJoinObj = [];
+        
+        foreach ($this->joins as $className => $join) {
+            
+            $objJoin = $join['join'];
+            $class   = $join['name'];
+            $limit   = $join['limit'] * $idTotal;
+            $order   = $join['order'];
+            
+
+            $listJoinObj[$className] = 
+            $objJoin
+            ->where($where)
+            ->order($order)
+            ->limit($limit)
+            ->get();
+
+        }
+
+        $foreign = false;
+
+        foreach($this->joins as $key => $join){
+            foreach ($join['join']->dataInfo['attr'] as $val) {
+                
+                if($val['render'] == "foreign"){
+                    $foreign[$key] = [ 
+                        "prop"     => $join['prop'],
+                        "key_sec"  => $val['prop']
+                    ] ;
+                }
+            }
+        }
+    
+        
+
+        $list = [];
+
+        foreach ($datas as $data) {
+
+            $reflc        = new \ReflectionClass($this->className);
+            $objPrincipal = $reflc->newInstanceWithoutConstructor();
+
+            foreach ($data as $index => $val) {
+                $prop = $reflc->getProperty($this->attrs[$index]['prop']);
+                $prop -> setAccessible (true);
+                $prop -> setValue($objPrincipal, $val);
+            }
+            
+            if($foreign){
+
+                $classesForeign = array_keys($foreign);
+
+                foreach ($classesForeign as $class) {
+                    
+                    $i = 0;
+                    $objoins = [];
+
+                    while (isset($listJoinObj[$class][$i])) {
+
+                        $at = $foreign[$class]['key_sec'];
+                        if($listJoinObj[$class][$i]->$at == $objPrincipal->id){
+                            
+                            $objoins[] = $listJoinObj[$class][$i];
+                        }
+                        $i++;
+                    }
+
+                    $prop = $reflc->getProperty($foreign[$class]['prop']);
+                    $prop -> setAccessible (true);
+                    $prop -> setValue($objPrincipal, $objoins);
+           
+                }
+            }
+
+            $list[] = $objPrincipal;
+            
+        }
+        
+    
+
+        return $list;
+    }
+
+    public function where(array $args){
+
+        $str = $this->transform_op_where_in_string($args);
+        $this->query .= "WHERE ".$str;
+    
+        return $this;
+
+    }
+
+    private function transform_op_where_in_string($args){
+        
+        $operators = ["=", "<", ">", "<>", ">=", "<=", "BETWEEN", "NOT", "OR", "AND"];
+
+        $str = "";
+
+        $attrbs = array_column($this->attrs, 'name');
+
+        foreach ($args as $arg) {
+
+            if(is_array($arg)){
+                $str .= "( ";
+                $str .= $this->transform_op_where_in_string($arg).") ";
+                continue;
+            } 
+            
+            if(is_string($arg) && !in_array($arg, $operators) && !in_array($arg, $attrbs)){
+                $str .= "\"".addslashes($arg)."\" ";
+                continue;
+            }
+
+            $str .= !in_array($arg, $operators) && in_array($arg, $attrbs)
+                    ? $this->dataInfo['table_name'].".".$arg." "
+                    : $arg." ";
+            
+        }
+
+        return $str;
+    }
+
+    
 
 }
