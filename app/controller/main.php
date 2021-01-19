@@ -1,7 +1,28 @@
 <?php 
 
+use Revue\src\Service as Service;
+
+$status = Service::call("EmailService", "exec", [
+    "key" => "12345",
+    "errado" => "nao existe"
+]);
+
+var_dump($status);
 
 /*
+$user = new User("User Test", [
+    new Endereco("test 1", [
+        new Telefone("telefone 1 A"),
+        new Telefone("telefone 1 B")
+    ]),
+    new Endereco("test 2", [
+        new Telefone("telefone 2 A"),
+        new Telefone("telefone 2 B")
+    ])
+]);
+
+$user->save();
+
 
 $css = css();
 

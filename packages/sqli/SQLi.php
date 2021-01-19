@@ -81,6 +81,31 @@ class SQLi {
 		return $res->hasError() ? $res->getCode() : true;
 	
 	}
+
+	/**
+	 *  Using this function for inset/updates/creates/etc - NOT SELECT
+	 *  This function will not return rows
+	 *	In case of success this function will return true. 
+	 *	In each error, this function will return the error code 
+	 *  @param $exec string
+	 *  @param $values array - ['ssi', 'value1', 'value2']
+	 *  @param $aliasDB string - Use this if you need insert in other data base 
+	 */
+	public static function exec(string $exec, $insert = false, string $aliasDB = "default", array $values = []){
+		
+		if(($pdo = DataBase::get($aliasDB)) === null) return false;
+		$st = $pdo->prepare($exec);
+		
+		if(!$st) throw new SQLiException(0, $pdo->errorInfo()[2]);
+			
+		if(count($values) > 1)
+			self::setBinds($st, $values);
+			
+		$res = new Result($st);
+		if($insert) return $res->hasError() ? false : $pdo->lastInsertId();
+		return $res->hasError() ? $res->getCode() : true;
+		
+	}
 	
 	/**
 	 *  Using this function for simple insert new row and get your id
@@ -139,29 +164,7 @@ class SQLi {
 
 	}
 
-	/**
-	 *  Using this function for inset/updates/creates/etc - NOT SELECT
-	 *  This function will not return rows
-	 *	In case of success this function will return true. 
-	 *	In each error, this function will return the error code 
-	 *  @param $exec string
-	 *  @param $values array - ['ssi', 'value1', 'value2']
-	 *  @param $aliasDB string - Use this if you need insert in other data base 
-	 */
-	public static function exec(string $exec, array $values = [], string $aliasDB = "default"){
-		
-		if(($pdo = DataBase::get($aliasDB)) === null) return false;
-		$st = $pdo->prepare($exec);
-		
-		if(!$st) throw new SQLiException(0, $pdo->errorInfo()[2]);
-			
-		if(count($values) > 1)
-			self::setBinds($st, $values);
-		
-		$res = new Result($st);
-		return $res->hasError() ? $res->getCode() : true;
-		
-	}
+	
 	
 
 

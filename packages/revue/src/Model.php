@@ -73,21 +73,120 @@ abstract class Model {
         return $this;
     }
 
-    public function update(){
-        // altera o objeto no banco
-    }
 
     public function save(){
         // salva o objeto criado no banco de dados
         // esta função só salva objetos criado pelo construtor
         if($this->fromConstructor){
             // salva os dados
+            $this->insert([$this]);
+            
         }
     }
 
-    public function delete(){
-        // deleta um registro no banco de dados
+
+    private function insert(array $arr_obj, $id_father = null, $table_name = null){
+        
+        // nomes de atributos que não podem ser usados
+        $nouse     = ["id", "pattern", "clone", "fromConstructor", "dataInfo", "query", "className", "is_model", "attrs", "joins"];
+        
+        $qlast     = []; // querys insert que serão criadas depois
+        $qinsert   = "INSERT INTO "; // query insert
+        $table     = false;
+        $attrbs    = false;
+        $attsStr   = " ( id, ";
+        $fatherReg = false;
+
+
+        if($id_father){
+            $fatherReg = "id_".$table_name;
+            $attsStr  .= $fatherReg.", ";
+            $nouse[]   = $fatherReg;
+        }
+
+        $usesAtts = [];
+
+        foreach ($arr_obj as $obj) {
+
+            $valuesStr = "( null, ".($id_father? $id_father.", " : "");
+
+            $props = get_object_vars($obj);
+            $reflc = new \ReflectionClass(get_class($obj));
+        
+            if(!$table) {
+
+                $table = preg_match(
+                    '/@model-table:\s*(\w+)/', 
+                    $reflc->getDocComment(), 
+                    $out
+                ) ? $out[1] : strtolower($reflc->name);
+
+                $qinsert .= $table;
+            }
+            
+            foreach ($props as $var => $value) {
+
+                $prop = $reflc->getProperty($var);
+                $prop -> setAccessible (true);
+
+                preg_match(
+                    '/@model-(attr|join):\s*(\w+)/', 
+                    $prop->getDocComment(), 
+                    $out
+                );
+
+                if(!$attrbs && !in_array($var, $nouse)){
+                    // insere os atributos na query
+                    if($out && $out[1] == "attr"){
+                        $usesAtts[] = $out[2];
+                        $attsStr .= $out[2].", ";
+                    }
+                    
+                }
+
+                if($out && $out[1] == "join"){
+                    $qlast[] = $value;
+                    continue;
+                }
+
+                if(isset($out[1]) && in_array($out[2],$usesAtts)){
+                    if(is_string($value)){
+                        $value = "\"".addslashes($value)."\"";
+                    } 
+                    
+                    if(!is_array($value)){
+                        $value = $valuesStr .=  $value.", ";
+                    }
+                }
+                
+            }
+
+            if(!$attrbs){
+                $attsStr = substr($attsStr, 0, -2);
+                $qinsert .= $attsStr." ) VALUES ";
+                $attrbs = true;
+            }
+
+            $qinsert .= substr($valuesStr, 0, -2)." ), ";
+
+        }
+
+        $qinsert = substr($qinsert, 0, -2).";";
+        $newid = sqli::exec($qinsert, true);
+
+        if($newid){
+            if($qlast){
+                foreach ($qlast as $q) {
+                    $this->insert($q, $newid, $table);
+                }
+            }
+        } else {
+            // TODO - Mostra erro em dev
+        }   
+
+
     }
+
 
     public static function select($className){
         // verifica se a classe extende de Model
@@ -279,6 +378,7 @@ abstract class Model {
                         }
                         $i++;
                     }
+
 
                     $prop = $reflc->getProperty($foreign[$class]['prop']);
                     $prop -> setAccessible (true);

@@ -8,3 +8,5 @@ $usuarios = Model::select("User")
 
             
 self::response($usuarios);
+
+

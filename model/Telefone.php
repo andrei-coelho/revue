@@ -16,4 +16,8 @@ class Telefone extends Revue\src\Model {
      */
     public $id_endereco;
 
+    public function __construct($numero){
+        $this->numero = $numero;
+    }
+
 }

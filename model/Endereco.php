@@ -20,4 +20,9 @@ class Endereco extends Revue\src\Model {
         "limit" => 10
     ];
 
+    public function __construct($rua, array $telefones = []){
+        $this->telefones = $telefones;
+        $this->rua = $rua;
+    }
+
 }

@@ -10,15 +10,17 @@ use Revue\Config as Config;
 Config::create();
 
 // model register
+// service register
 spl_autoload_register(function($class) {
     
-  
+    
     if(($str = strstr($class, "\\"))) $class = $str; 
 
     // Todo - Ler todos os diretórios do model
 
     $files = [
         "../model/".$class.".php",
+        "../services/".$class.".php",
     ];
 
     foreach ($files as $file) {

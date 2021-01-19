@@ -109,7 +109,7 @@ class ObjJson {
                 switch($type){
                     case "string": 
                         if(is_array($value))
-                            $value = $this->array_to_string($value);
+                            $value = self::array_to_string($value);
                         else
                             $value = (string)$value;
                     break;
@@ -133,12 +133,12 @@ class ObjJson {
         return $obj;
     }
     
-    private function array_to_string(array $arr){
+    public static function array_to_string(array $arr){
         $str = "[";
         foreach($arr as $key => $val) {
             if(!is_numeric($key)) $str .= $key . ":";
             if(is_array($val))
-                $str .= $this->array_to_string($val).",";
+                $str .= self::array_to_string($val).",";
             else
                 $str .= $val.",";
         }

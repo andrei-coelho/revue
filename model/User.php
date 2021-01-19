@@ -19,8 +19,9 @@ class User extends Revue\src\Model {
         "order" => "id"
     ];
 
-    function __construct($nomeUser){
-        $this->nomeUser = $nomeUer;
+    function __construct(string $nomeUser, array $address = []){
+        $this->address = $address;
+        $this->nomeUser = $nomeUser;
     }
 
 }
