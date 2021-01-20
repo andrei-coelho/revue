@@ -3,7 +3,6 @@
 
 require "../packages/revue/Config.php";
 require "../packages/revue/src/Spyc.php";
-require "../packages/helper.php";
 
 use Revue\Config as Config;
 
