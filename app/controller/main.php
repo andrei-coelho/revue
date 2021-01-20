@@ -1,13 +1,16 @@
 <?php 
 
-use Revue\src\Service as Service;
-
+// use Revue\src\Service as Service;
+/*
 $status = Service::call("EmailService", "exec", [
     "key" => "12345",
     "errado" => "nao existe"
 ]);
-
-var_dump($status);
+*/
+self::export("user", [
+    "login" => true,
+    "key"   => "my_key_generated_in_server"
+  ]);
 
 /*
 $user = new User("User Test", [

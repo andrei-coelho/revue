@@ -1,5 +1,4 @@
-console.log("teste js 1");
 
-console.log(Revue.lista);
 console.log(Revue.user);
-console.log(URL);
+
+// {login: true, key: "my_key_generated_in_server"}

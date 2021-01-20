@@ -16,18 +16,19 @@ Revue is very simple to use. Enjoy!
   -  [Usage](#usage)
   -  [About Modules](#about-modules)
   -  [About Route](#about-route)
+  -  [About Middlewares](#about-middlewares)
   -  [Module App](#module-app)
-      -  [Route](#route)
-      -  [Components](#components)
-      -  [Controllers](#Tech)
-      -  [Middlewares](#Tech)
-  -  [Module API](#Tech)
-     - [Route](#Tech)
-     - [Controllers](#Tech)
-     - [Middlewares](#Tech)
-  -  [Service](#Tech)
-  -  [Model](#Tech)
-  -  [Public](#Tech)
+      - [Components](#components)
+      - [Route](#about-route)
+      - [Controllers](#Components---Controller)
+      - [Middlewares](#about-middlewares)
+  -  [Module API](#module-api)
+      - [Route](#route)
+      - [Controllers](#controllers)
+      - [Middlewares](#middlewares)
+  -  [Service](#service)
+  -  [Model](#model)
+  -  [Public](#public)
 
 -----------------------
 
@@ -57,35 +58,42 @@ database:
     host:    localhost
     dbname:  mydb
     user:    root
-    pass:
+    pass:    password
     charset: utf8
-    port:
+    port:    # optional
 
 ```
+-----------------------
 
 # About Modules
 
 Os módulos são partes da aplicação que atuam de forma independente. Eles são invocados através da url pelo `route.php` dele. Ou seja, todo módulo precisa ter no mínimo um arquivo `route.php` e um diretório `middleware`.
 
-Seu ciclo de vida funciona da seguinte forma:
+Todo módulo é cadastrado no arquivo `conf.yaml` para ser usado.
+
+Em uma url `https://www.domain.net/home` o pacote Revue vai procurar se exististe um módulo `home` cadastrado. Se houver esse módulo será executado, se não houver será executado o módulo `pattern`.
+
+O ciclo de vida de um módulo funciona da seguinte forma:
 
 ![revue life cycle](life-cycle.jpg) 
 
-##### Start
+#### Start
 
-- Cria o módulo e adiciona as rotas contiguradas
+Cria o módulo e adiciona as rotas contiguradas
 
-##### Before Config
+#### Before Config
 
-- Se houver, chama um Middleware cadastrado.
+Se houver, chama um Middleware cadastrado.
 
-##### Config
+#### Config
 
-- Configura o módulo inserindo todos os arquivos necessários
+Configura o módulo inserindo todos os arquivos necessários
 
-##### Render
+#### Render
 
-- Roda o componente e renderiza a resposta
+Roda o componente e renderiza a resposta
+
+-----------------------
 
 # About Route
 
@@ -94,9 +102,7 @@ Todas as requisições via get são tratadas pela classe `Route` que conversa co
 Para criar uma rota você deve registrá-la no arquivo `route.php` do módulo usado:
 
 ```php
-
   Route::req($regex, $target);
-
 ```
 
 Para cada módulo usado, o `$target` pode significar um arquivo diferente. Por exemplo, no módulo App, o `$taget` significa um componente registrado, enquanto na API significa um `controller`
@@ -108,9 +114,7 @@ O `$regex` é usado para identificar as requisições via get pela URL.
 Exemplo:
 
 ```php
-   
   Route::req('/home\/(user-list|contatos-list)/', 'main');
-
 ```
 
 Na requisição acima, indica que para acessar o `target main` a URL pode ser de duas formas:
@@ -123,32 +127,228 @@ Se adicionarmos o quantificador opcional `?` teremos 3 modos de acesso.
 Exemplo:
 
 ```php
-   
   Route::req('/home\/?(user-list|contatos-list)?/', 'main');
-
 ```
 
 - `home/user-list`
 - `home/contatos-list`
 - `home`
 
-##### Recuperando Valores
+#### Recuperando Valores
 
 Para recuperar valores via URL precisamos isolar o nome da variável entre chaves no `$regex`. Veja:
 
 ```php
-   
   Route::req('/home\/{var_name}/', 'main');
-
 ```
 
 E então essa variável ficará disponível em `Request::get('var_name')`.
-Se adicionarmos o quantificador opcional `?`. Exemplo:
+Podemos adicionar o quantificador opcional `?`. Exemplo:
 
 ```php
-   
   Route::req('/home\/?{var_name}?/', 'main');
+```
+
+Neste caso, o `Request::get('var_name')` poderá retornar `false`;
+
+-----------------------
+
+# About Middlewares
+
+Os middlewares também são chamados pelas rotas. E para adiciona-los você deve criar um arquivo no diretorio middleware do módulo utilizado, indicar sua rota em `$regex` e inserir o nome do arquivo no `$target` usando a função `Route::mid`. Exemplo: 
+
+```php
+  Route::mid('/main/', 'my_file');
+```
+
+Nos middlewares você tem acesso ao model e service para realizar uma ação e a partir dele você pode fazer um redirecionamento de url ou deixar a aplicação seguir com seu ciclo de vida.
+
+Exemplo:
+
+
+```php
+  #{module}/middleware/my_file.php
+
+  if(User::is_loged()){
+    self::redirect("admin");
+  } else {
+    self::redirect("login");
+  }
 
 ```
 
-O `Request::get('var_name')` poderá retornar `false`;
+-----------------------
+
+# Module App
+
+O módulo App é o módulo padrão do framework. Além das rotas e dos middlewares que foram explanados anteriomente, é necessário entender a parte dos controllers e de componentes, que é uma camada interna dele que contém o html que será renderizado.
+
+## Components
+
+O Revue foi criado para evitar muitas renderizações de HTML via server-side. A estrutura foi planejada para que a maior parte deste trabalho seja feita no frontend. E os components dão suporte para isso.
+
+Um component é uma "página" a ser renderizada. Cada componente pode ter um controller, muitos arquivos Javascript e CSS, e é obrigatório um arquivo HTML. Porém, cada componente pode ter vários outros componentes internos.
+
+Antes de tudo, é necessário cadastrar TODOS os seus componentes usando a função `Components::register` no arquivo `components.php`. Veja:
+
+```php
+# components.php
+
+Revue\modules\Components::register([
+
+    "home" => [
+        "controller" => "main",
+        "file"       => "home",
+        "js"         => ["file1", "file3"],
+        "css"        => ["file2"],
+    ],
+
+    "footer" => [
+        "controller" => "footer",
+        "file"       => "footer",
+        "js"         => ["file1, file2"],
+        "css"        => ["file2"],
+    ],
+
+    "header" => [
+        "file"       => "header",
+        "js"         => ["header"],
+    ],
+
+    "menu" => [
+        "file"       => "menu",
+        "js"         => ["menu"],
+    ]
+])
+```
+
+Não se preocupe se existem arquivos CSS e JS repetidos em componentes diferentes. O importante é que você informe quais arquivos o componente usa.
+
+Feito isso, é necessário cadastrar a rota em  para acessar um component:
+
+```php
+  # aqui estamos vendo se a requisição está vazia 'main'
+  # ou se está escrito 'home' nela
+  Route::req('/(home|main)/', 'home');
+```
+
+Então, o componente que será adicionado na url `https://www.domain.net/` será `home` através da sua chave primária no array:
+
+```php
+  "home" => [
+    "controller" => "main",   // controller
+    "file"       => "home",   // HTML
+    "js"         => ["file1", "file3"],
+    "css"        => ["file2"],
+  ]
+```
+
+## Components - HTML File
+
+O arquivo HTML de cada component fica no diretório `components`. Veja o arquivo `home` abaixo:
+
+```HTML
+  <!-- file: app/components/home.html  -->
+
+  <component>header</component>
+
+  <h1>Olá mundo! </h1>
+  <p>Meu nome é {$nome}</p>
+
+  <component>footer</component>
+```
+as tags `<components></component>`acima adicionam um novo componente. O valor interno é a chave do nome do componente registrado anteriormente. 
+
+## Components - Controller
+
+- ## Variáveis no HTML 
+
+Para criar uma variável a ser renderizada dentro do HTML, precisamos usa as chaves e a váriável que será usada.
+
+No arquivo anterior `app/components/home.html` temos a seguinte linha de código:
+
+```HTML
+  <p>Meu nome é {$nome}</p>
+```
+
+Esta váriável `{$nome}` só poderá ser renderizada se houver um controller cadastrado.
+
+Se olharmos o registro do component `home` podemos observar que o seu controller chama-se `main` e este é o arquivo que será inserido com o seguinte código:
+
+```php
+  # app/controller/main.php
+
+  self::data([
+    "nome" => "Andrei"
+  ]);
+```
+Usando o código acima, a tag HTML será renderizada e ficará assim:
+
+```HTML
+  <p>Meu nome é Andrei</p>
+```
+
+- ## Variáveis entre components
+
+```php
+  # $to é nome do componente que receberá os dados
+  # $data são os valores entregues
+  self::send(string $to, array $data);
+
+  # retora os valores enviados
+  self::receive();
+```
+
+Apesar dos componentes funcionarem independentemente, muitas vezes precisamos enviar informações a outros componentes. Para isso o usamos a função `self::send`. E o componete que quiser fazer uso desses valores terá que usar `self::receive`. Exemplo:
+
+```php
+  # app/controller/main.php
+
+  self::send("header", [
+    "title" => "Olá Mundo!"
+  ]);
+```
+
+```php
+  # app/controller/header.php
+
+  $data = self::receive();
+  echo $data['title'];
+
+```
+
+- ## Variáveis no JS
+
+Como foi falado anteriormente, queremos que a maior parte da geração e renderização do HTML seja feita pelo frontend. o Revue pode enviar informações iniciais como listas de dados em json, chaves de segurança, etc.
+
+Para isso existe a função:
+
+```php
+  self::export(string $key, array $value);
+```
+
+exemplo:
+```php
+  # app/controller/main.php
+
+  self::export("user", [
+    "login" => true,
+    "key"   => "my_key_generated_in_server"
+  ]);
+```
+E no arquivo `public/js/file1.js` você poderá chamando o objeto `Revue`. veja:
+
+```javascript
+  console.log(Revue.user);
+```
+Saída:
+
+```json
+  {
+    login: true, 
+    key: "my_key_generated_in_server"
+  }
+```
+
+--------------------
+# Module API

@@ -34,7 +34,7 @@ modules:
   api:
     includes:
       - headers.php
-    type: secondary
+    type: other
     dir: api
     class_name: API
 

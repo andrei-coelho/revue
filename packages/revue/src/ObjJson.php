@@ -22,7 +22,7 @@ class ObjJson {
 
     private function json($obj){
 
-        return hot_json_encode($obj, 
+        return $this->hot_json_encode($obj, 
             JSON_PRESERVE_ZERO_FRACTION | 
             JSON_PARTIAL_OUTPUT_ON_ERROR |
             JSON_UNESCAPED_UNICODE
