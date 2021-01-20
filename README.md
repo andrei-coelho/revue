@@ -1,8 +1,7 @@
-![revue](revue%20.png) 
-# Revue
+![revue](revue.png) 
+# Revue Framework 
 
-![Build Status](https://img.shields.io/static/v1?label=version&color=blueviolet&message=0.0.2-alpha&logo=data:image/svg+xml;base64,//48AHMAdgBnACAAeABtAGwAbgBzAD0AIgBoAHQAdABwADoALwAvAHcAdwB3AC4AdwAzAC4AbwByAGcALwAyADAAMAAwAC8AcwB2AGcAIgAgAHgAbQBsADoAcwBwAGEAYwBlAD0AIgBwAHIAZQBzAGUAcgB2AGUAIgAgAHYAZQByAHMAaQBvAG4APQAiADEALgAxACIAIABzAHQAeQBsAGUAPQAiAHMAaABhAHAAZQAtAHIAZQBuAGQAZQByAGkAbgBnADoAZwBlAG8AbQBlAHQAcgBpAGMAUAByAGUAYwBpAHMAaQBvAG4AOwAgAHQAZQB4AHQALQByAGUAbgBkAGUAcgBpAG4AZwA6AGcAZQBvAG0AZQB0AHIAaQBjAFAAcgBlAGMAaQBzAGkAbwBuADsAIABpAG0AYQBnAGUALQByAGUAbgBkAGUAcgBpAG4AZwA6AG8AcAB0AGkAbQBpAHoAZQBRAHUAYQBsAGkAdAB5ADsAIABmAGkAbABsAC0AcgB1AGwAZQA6AGUAdgBlAG4AbwBkAGQAOwAgAGMAbABpAHAALQByAHUAbABlADoAZQB2AGUAbgBvAGQAZAAiAA0ACgB2AGkAZQB3AEIAbwB4AD0AIgAwACAAMAAgADIAMgAwACAAMgAyADAAIgANAAoAIAB4AG0AbABuAHMAOgB4AGwAaQBuAGsAPQAiAGgAdAB0AHAAOgAvAC8AdwB3AHcALgB3ADMALgBvAHIAZwAvADEAOQA5ADkALwB4AGwAaQBuAGsAIgA+AA0ACgAgADwAZABlAGYAcwA+AA0ACgAgACAAPABzAHQAeQBsAGUAIAB0AHkAcABlAD0AIgB0AGUAeAB0AC8AYwBzAHMAIgA+AA0ACgAgACAAIAA8ACEAWwBDAEQAQQBUAEEAWwANAAoAIAAgACAAIAAuAGYAaQBsADAAIAB7AGYAaQBsAGwAOgAjADQARQA1AEUARQA0AH0ADQAKACAAIAAgACAALgBmAGkAbAAzACAAewBmAGkAbABsADoAIwA0AEUANQBFAEUANAB9AA0ACgAgACAAIAAgAC4AZgBpAGwAMQAgAHsAZgBpAGwAbAA6ACMANgAzAEIAMABGADkAfQANAAoAIAAgACAAIAAuAGYAaQBsADQAIAB7AGYAaQBsAGwAOgAjADYAMwBCADAARgA5AH0ADQAKACAAIAAgACAALgBmAGkAbAAyACAAewBmAGkAbABsADoAIwA2ADMARAAyAEYAOQB9AA0ACgAgACAAIAAgAC4AZgBpAGwANQAgAHsAZgBpAGwAbAA6ACMANgAzAEQAMgBGADkAfQANAAoAIAAgACAAXQBdAD4ADQAKACAAIAA8AC8AcwB0AHkAbABlAD4ADQAKACAAPAAvAGQAZQBmAHMAPgANAAoAIAA8AGcAIABpAGQAPQAiAEMAYQBtAGEAZABhAF8AeAAwADAAMgAwAF8AMQAiAD4ADQAKACAAIAA8AGcAIABpAGQAPQAiAF8AMgA1ADUAMgAzADAANwAzADkAOQAwADAAOAAiAD4ADQAKACAAIAAgADwAcABvAGwAeQBnAG8AbgAgAGMAbABhAHMAcwA9ACIAZgBpAGwAMAAiACAAcABvAGkAbgB0AHMAPQAiADIAMgAuADIALAA1ADkALgA1ACAANAA2AC4ANgA5ACwANwAzAC4ANgAgADQANgAuADYAOQAsADEANAA2AC4ANQAyACAAMQAxADAALgAxADkALAAxADgAMgAuADkAOAAgADEAMQAwAC4AMgA3ACwAMgAxADEALgAxADEAIAAyADIALgAwADcALAAxADYAMAAuADUAIAAiAC8APgANAAoAIAAgACAAPABwAG8AbAB5AGcAbwBuACAAYwBsAGEAcwBzAD0AIgBmAGkAbAAxACIAIABwAG8AaQBuAHQAcwA9ACIAMgAyAC4AMgAsADUAOQAuADUAIAAxADEAMAAuADIANwAsADgALgA2ADYAIAAxADkANwAuADgALAA1ADkALgA1ACAAMQA3ADMALgAzADMALAA3ADMALgA2ACAAMQAxADAALgAwADEALAAzADYALgA4ADUAIAA0ADYALgA2ADkALAA3ADMALgA2ACAAIgAvAD4ADQAKACAAIAAgADwAcABvAGwAeQBnAG8AbgAgAGMAbABhAHMAcwA9ACIAZgBpAGwAMgAiACAAcABvAGkAbgB0AHMAPQAiADEAMQAwAC4AMQA5ACwAMQA4ADIALgA5ADgAIAAxADEAMAAuADEAMwAsADIAMQAxAC4AMwA0ACAAMQA5ADcALgA4ACwAMQA2ADAALgAyADcAIAAxADkANwAuADkAMwAsADUAOQAuADIANwAgADEANwAzAC4AMwAzACwANwAzAC4ANgAgADEANwAzAC4ANgA4ACwAMQA0ADYALgA1ADIAIAAiAC8APgANAAoAIAAgACAAPABwAG8AbAB5AGcAbwBuACAAYwBsAGEAcwBzAD0AIgBmAGkAbAAzACIAIABwAG8AaQBuAHQAcwA9ACIANgAyAC4ANQAzACwAOAAyAC4ANQA5ACAAOAA5AC4AMgA3ACwAOQA4AC4AMAAyACAAOAA4AC4ANwA1ACwAMQA1ADIALgAyADIAIAA2ADIALgA1ADgALAAxADMANgAuADkAOAAgACIALwA+AA0ACgAgACAAIAA8AHAAbwBsAHkAZwBvAG4AIABjAGwAYQBzAHMAPQAiAGYAaQBsADQAIgAgAHAAbwBpAG4AdABzAD0AIgA4ADkALgAyADcALAA5ADgALgAwADIAIAAxADAAOQAuADgAOAAsADgANgAuADEAMgAgADEANQA3AC4AMAA4ACwAMQAxADMALgAzADcAIAAxADUANwAuADAAOAAsADgAMgAuADYAOQAgADEAMAA5AC4ANwAyACwANQA1AC4AMwA0ACAANgAyAC4ANQA4ACwAOAAyAC4ANgA5ACAAIgAvAD4ADQAKACAAIAAgADwAcABvAGwAeQBnAG8AbgAgAGMAbABhAHMAcwA9ACIAZgBpAGwAMwAiACAAcABvAGkAbgB0AHMAPQAiADEAMQAwAC4AMQAxACwAMQAxADAALgAwADUAIAAxADUANwAuADEANAAsADEAMwA3AC4AMAA4ACAAMQAzADMALgA3ADYALAAxADUAMAAuADUANwAgADEAMAA5AC4AOAA1ACwAMQAzADYALgA3ADcAIAAiAC8APgANAAoAIAAgACAAPABwAG8AbAB5AGcAbwBuACAAYwBsAGEAcwBzAD0AIgBmAGkAbAA1ACIAIABwAG8AaQBuAHQAcwA9ACIAMQAxADAALgAxADEALAAxADEAMAAuADAANQAgADEAMwAwAC4AMwA5ACwAOQA3AC4AOQAzACAAMQA1ADcALgAwADgALAAxADEAMwAuADMANwAgADEAMwA2AC4AMgAsADEAMgA1AC4AMAAzACAAIgAvAD4ADQAKACAAIAA8AC8AZwA+AA0ACgAgADwALwBnAD4ADQAKADwALwBzAHYAZwA+AA0ACgA=&style=platic&logoColor=white)  ![php version](https://img.shields.io/static/v1?label=php&message=%3E%3D%207&color=green&logo=php&style=platic&logoColor=white) ![vue version](https://img.shields.io/static/v1?label=vue.js&color=blue&message=3&logo=vue.js&style=platic&logoColor=white)
-
+![Build Status](https://img.shields.io/static/v1?label=version&color=blueviolet&message=0.0.2-alpha&logo=data:image/svg+xml;base64,//48AHMAdgBnACAAeABtAGwAbgBzAD0AIgBoAHQAdABwADoALwAvAHcAdwB3AC4AdwAzAC4AbwByAGcALwAyADAAMAAwAC8AcwB2AGcAIgAgAHgAbQBsADoAcwBwAGEAYwBlAD0AIgBwAHIAZQBzAGUAcgB2AGUAIgAgAHYAZQByAHMAaQBvAG4APQAiADEALgAxACIAIABzAHQAeQBsAGUAPQAiAHMAaABhAHAAZQAtAHIAZQBuAGQAZQByAGkAbgBnADoAZwBlAG8AbQBlAHQAcgBpAGMAUAByAGUAYwBpAHMAaQBvAG4AOwAgAHQAZQB4AHQALQByAGUAbgBkAGUAcgBpAG4AZwA6AGcAZQBvAG0AZQB0AHIAaQBjAFAAcgBlAGMAaQBzAGkAbwBuADsAIABpAG0AYQBnAGUALQByAGUAbgBkAGUAcgBpAG4AZwA6AG8AcAB0AGkAbQBpAHoAZQBRAHUAYQBsAGkAdAB5ADsAIABmAGkAbABsAC0AcgB1AGwAZQA6AGUAdgBlAG4AbwBkAGQAOwAgAGMAbABpAHAALQByAHUAbABlADoAZQB2AGUAbgBvAGQAZAAiAA0ACgB2AGkAZQB3AEIAbwB4AD0AIgAwACAAMAAgADIAMgAwACAAMgAyADAAIgANAAoAIAB4AG0AbABuAHMAOgB4AGwAaQBuAGsAPQAiAGgAdAB0AHAAOgAvAC8AdwB3AHcALgB3ADMALgBvAHIAZwAvADEAOQA5ADkALwB4AGwAaQBuAGsAIgA+AA0ACgAgADwAZABlAGYAcwA+AA0ACgAgACAAPABzAHQAeQBsAGUAIAB0AHkAcABlAD0AIgB0AGUAeAB0AC8AYwBzAHMAIgA+AA0ACgAgACAAIAA8ACEAWwBDAEQAQQBUAEEAWwANAAoAIAAgACAAIAAuAGYAaQBsADAAIAB7AGYAaQBsAGwAOgAjADQARQA1AEUARQA0AH0ADQAKACAAIAAgACAALgBmAGkAbAAzACAAewBmAGkAbABsADoAIwA0AEUANQBFAEUANAB9AA0ACgAgACAAIAAgAC4AZgBpAGwAMQAgAHsAZgBpAGwAbAA6ACMANgAzAEIAMABGADkAfQANAAoAIAAgACAAIAAuAGYAaQBsADQAIAB7AGYAaQBsAGwAOgAjADYAMwBCADAARgA5AH0ADQAKACAAIAAgACAALgBmAGkAbAAyACAAewBmAGkAbABsADoAIwA2ADMARAAyAEYAOQB9AA0ACgAgACAAIAAgAC4AZgBpAGwANQAgAHsAZgBpAGwAbAA6ACMANgAzAEQAMgBGADkAfQANAAoAIAAgACAAXQBdAD4ADQAKACAAIAA8AC8AcwB0AHkAbABlAD4ADQAKACAAPAAvAGQAZQBmAHMAPgANAAoAIAA8AGcAIABpAGQAPQAiAEMAYQBtAGEAZABhAF8AeAAwADAAMgAwAF8AMQAiAD4ADQAKACAAIAA8AGcAIABpAGQAPQAiAF8AMgA1ADUAMgAzADAANwAzADkAOQAwADAAOAAiAD4ADQAKACAAIAAgADwAcABvAGwAeQBnAG8AbgAgAGMAbABhAHMAcwA9ACIAZgBpAGwAMAAiACAAcABvAGkAbgB0AHMAPQAiADIAMgAuADIALAA1ADkALgA1ACAANAA2AC4ANgA5ACwANwAzAC4ANgAgADQANgAuADYAOQAsADEANAA2AC4ANQAyACAAMQAxADAALgAxADkALAAxADgAMgAuADkAOAAgADEAMQAwAC4AMgA3ACwAMgAxADEALgAxADEAIAAyADIALgAwADcALAAxADYAMAAuADUAIAAiAC8APgANAAoAIAAgACAAPABwAG8AbAB5AGcAbwBuACAAYwBsAGEAcwBzAD0AIgBmAGkAbAAxACIAIABwAG8AaQBuAHQAcwA9ACIAMgAyAC4AMgAsADUAOQAuADUAIAAxADEAMAAuADIANwAsADgALgA2ADYAIAAxADkANwAuADgALAA1ADkALgA1ACAAMQA3ADMALgAzADMALAA3ADMALgA2ACAAMQAxADAALgAwADEALAAzADYALgA4ADUAIAA0ADYALgA2ADkALAA3ADMALgA2ACAAIgAvAD4ADQAKACAAIAAgADwAcABvAGwAeQBnAG8AbgAgAGMAbABhAHMAcwA9ACIAZgBpAGwAMgAiACAAcABvAGkAbgB0AHMAPQAiADEAMQAwAC4AMQA5ACwAMQA4ADIALgA5ADgAIAAxADEAMAAuADEAMwAsADIAMQAxAC4AMwA0ACAAMQA5ADcALgA4ACwAMQA2ADAALgAyADcAIAAxADkANwAuADkAMwAsADUAOQAuADIANwAgADEANwAzAC4AMwAzACwANwAzAC4ANgAgADEANwAzAC4ANgA4ACwAMQA0ADYALgA1ADIAIAAiAC8APgANAAoAIAAgACAAPABwAG8AbAB5AGcAbwBuACAAYwBsAGEAcwBzAD0AIgBmAGkAbAAzACIAIABwAG8AaQBuAHQAcwA9ACIANgAyAC4ANQAzACwAOAAyAC4ANQA5ACAAOAA5AC4AMgA3ACwAOQA4AC4AMAAyACAAOAA4AC4ANwA1ACwAMQA1ADIALgAyADIAIAA2ADIALgA1ADgALAAxADMANgAuADkAOAAgACIALwA+AA0ACgAgACAAIAA8AHAAbwBsAHkAZwBvAG4AIABjAGwAYQBzAHMAPQAiAGYAaQBsADQAIgAgAHAAbwBpAG4AdABzAD0AIgA4ADkALgAyADcALAA5ADgALgAwADIAIAAxADAAOQAuADgAOAAsADgANgAuADEAMgAgADEANQA3AC4AMAA4ACwAMQAxADMALgAzADcAIAAxADUANwAuADAAOAAsADgAMgAuADYAOQAgADEAMAA5AC4ANwAyACwANQA1AC4AMwA0ACAANgAyAC4ANQA4ACwAOAAyAC4ANgA5ACAAIgAvAD4ADQAKACAAIAAgADwAcABvAGwAeQBnAG8AbgAgAGMAbABhAHMAcwA9ACIAZgBpAGwAMwAiACAAcABvAGkAbgB0AHMAPQAiADEAMQAwAC4AMQAxACwAMQAxADAALgAwADUAIAAxADUANwAuADEANAAsADEAMwA3AC4AMAA4ACAAMQAzADMALgA3ADYALAAxADUAMAAuADUANwAgADEAMAA5AC4AOAA1ACwAMQAzADYALgA3ADcAIAAiAC8APgANAAoAIAAgACAAPABwAG8AbAB5AGcAbwBuACAAYwBsAGEAcwBzAD0AIgBmAGkAbAA1ACIAIABwAG8AaQBuAHQAcwA9ACIAMQAxADAALgAxADEALAAxADEAMAAuADAANQAgADEAMwAwAC4AMwA5ACwAOQA3AC4AOQAzACAAMQA1ADcALgAwADgALAAxADEAMwAuADMANwAgADEAMwA2AC4AMgAsADEAMgA1AC4AMAAzACAAIgAvAD4ADQAKACAAIAA8AC8AZwA+AA0ACgAgADwALwBnAD4ADQAKADwALwBzAHYAZwA+AA0ACgA=&style=platic&logoColor=white)  ![php version](https://img.shields.io/static/v1?label=php&message=%3E%3D%207&color=green&logo=php&style=platic&logoColor=white) ![vue version](https://img.shields.io/static/v1?label=vue.js&color=blue&message=3&logo=vue.js&style=platic&logoColor=white) ![license](https://img.shields.io/badge/licence-MIT-black)
 
 
 With the renderings currently made on the frontend, I decided to create a micro framework to act on the backend of the application helping to assist in requests made by them.
@@ -14,10 +13,12 @@ Revue is very simple to use. Enjoy!
 -----------------------
 
 # Index
-
-  -  [Module App](#Module-App)
-      -  [Route](##Route)
-      -  [Components](#Components)
+  -  [Usage](#usage)
+  -  [About Modules](#about-modules)
+  -  [About Route](#about-route)
+  -  [Module App](#module-app)
+      -  [Route](#route)
+      -  [Components](#components)
       -  [Controllers](#Tech)
       -  [Middlewares](#Tech)
   -  [Module API](#Tech)
@@ -28,69 +29,126 @@ Revue is very simple to use. Enjoy!
   -  [Model](#Tech)
   -  [Public](#Tech)
 
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper elementum augue et eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum enim risus, semper sit amet mauris sed, dignissim malesuada neque. Praesent pellentesque dui id tellus efficitur, ac hendrerit mi mollis. In euismod justo finibus, vulputate nisl at, tincidunt augue. Vestibulum laoreet mattis ante, ut auctor lectus egestas et. Etiam eget quam ac dolor commodo volutpat semper et augue.
+-----------------------
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+# Usage
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper elementum augue et eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum enim risus, semper sit amet mauris sed, dignissim malesuada neque. Praesent pellentesque dui id tellus efficitur, ac hendrerit mi mollis. In euismod justo finibus, vulputate nisl at, tincidunt augue. Vestibulum laoreet mattis ante, ut auctor lectus egestas et. Etiam eget quam ac dolor commodo volutpat semper et augue.
+First of all you will need to configure the `conf.yaml` file.
+This is the basic:
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+```yaml
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper elementum augue et eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum enim risus, semper sit amet mauris sed, dignissim malesuada neque. Praesent pellentesque dui id tellus efficitur, ac hendrerit mi mollis. In euismod justo finibus, vulputate nisl at, tincidunt augue. Vestibulum laoreet mattis ante, ut auctor lectus egestas et. Etiam eget quam ac dolor commodo volutpat semper et augue.
+  name:            project name 
+  description:     project description
+  version:         1.0.0
+  production_url:  https://revue.net/
+  development_url: http://localhost:8080/
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+```
 
-# Module App
+If you are going to use the Model, you also need to configure the database:
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper elementum augue et eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum enim risus, semper sit amet mauris sed, dignissim malesuada neque. Praesent pellentesque dui id tellus efficitur, ac hendrerit mi mollis. In euismod justo finibus, vulputate nisl at, tincidunt augue. Vestibulum laoreet mattis ante, ut auctor lectus egestas et. Etiam eget quam ac dolor commodo volutpat semper et augue.
+```yaml
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+database:
 
+  default:
+    driver:  mysql
+    host:    localhost
+    dbname:  mydb
+    user:    root
+    pass:
+    charset: utf8
+    port:
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper elementum augue et eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum enim risus, semper sit amet mauris sed, dignissim malesuada neque. Praesent pellentesque dui id tellus efficitur, ac hendrerit mi mollis. In euismod justo finibus, vulputate nisl at, tincidunt augue. Vestibulum laoreet mattis ante, ut auctor lectus egestas et. Etiam eget quam ac dolor commodo volutpat semper et augue.
+```
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+# About Modules
 
-## Route
+Os módulos são partes da aplicação que atuam de forma independente. Eles são invocados através da url pelo `route.php` dele. Ou seja, todo módulo precisa ter no mínimo um arquivo `route.php` e um diretório `middleware`.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper elementum augue et eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum enim risus, semper sit amet mauris sed, dignissim malesuada neque. Praesent pellentesque dui id tellus efficitur, ac hendrerit mi mollis. In euismod justo finibus, vulputate nisl at, tincidunt augue. Vestibulum laoreet mattis ante, ut auctor lectus egestas et. Etiam eget quam ac dolor commodo volutpat semper et augue.
+Seu ciclo de vida funciona da seguinte forma:
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+![revue life cycle](life-cycle.jpg) 
 
+##### Start
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper elementum augue et eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum enim risus, semper sit amet mauris sed, dignissim malesuada neque. Praesent pellentesque dui id tellus efficitur, ac hendrerit mi mollis. In euismod justo finibus, vulputate nisl at, tincidunt augue. Vestibulum laoreet mattis ante, ut auctor lectus egestas et. Etiam eget quam ac dolor commodo volutpat semper et augue.
+- Cria o módulo e adiciona as rotas contiguradas
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+##### Before Config
 
+- Se houver, chama um Middleware cadastrado.
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+##### Config
 
+- Configura o módulo inserindo todos os arquivos necessários
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper elementum augue et eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum enim risus, semper sit amet mauris sed, dignissim malesuada neque. Praesent pellentesque dui id tellus efficitur, ac hendrerit mi mollis. In euismod justo finibus, vulputate nisl at, tincidunt augue. Vestibulum laoreet mattis ante, ut auctor lectus egestas et. Etiam eget quam ac dolor commodo volutpat semper et augue.
+##### Render
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+- Roda o componente e renderiza a resposta
 
+# About Route
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+Todas as requisições via get são tratadas pela classe `Route` que conversa com a classe `Request`.
 
+Para criar uma rota você deve registrá-la no arquivo `route.php` do módulo usado:
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper elementum augue et eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum enim risus, semper sit amet mauris sed, dignissim malesuada neque. Praesent pellentesque dui id tellus efficitur, ac hendrerit mi mollis. In euismod justo finibus, vulputate nisl at, tincidunt augue. Vestibulum laoreet mattis ante, ut auctor lectus egestas et. Etiam eget quam ac dolor commodo volutpat semper et augue.
+```php
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+  Route::req($regex, $target);
 
-## Components
+```
 
+Para cada módulo usado, o `$target` pode significar um arquivo diferente. Por exemplo, no módulo App, o `$taget` significa um componente registrado, enquanto na API significa um `controller`
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper elementum augue et eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum enim risus, semper sit amet mauris sed, dignissim malesuada neque. Praesent pellentesque dui id tellus efficitur, ac hendrerit mi mollis. In euismod justo finibus, vulputate nisl at, tincidunt augue. Vestibulum laoreet mattis ante, ut auctor lectus egestas et. Etiam eget quam ac dolor commodo volutpat semper et augue.
+#### $regex
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+O `$regex` é usado para identificar as requisições via get pela URL. 
 
+Exemplo:
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper elementum augue et eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum enim risus, semper sit amet mauris sed, dignissim malesuada neque. Praesent pellentesque dui id tellus efficitur, ac hendrerit mi mollis. In euismod justo finibus, vulputate nisl at, tincidunt augue. Vestibulum laoreet mattis ante, ut auctor lectus egestas et. Etiam eget quam ac dolor commodo volutpat semper et augue.
+```php
+   
+  Route::req('/home\/(user-list|contatos-list)/', 'main');
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+```
 
+Na requisição acima, indica que para acessar o `target main` a URL pode ser de duas formas:
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper elementum augue et eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum enim risus, semper sit amet mauris sed, dignissim malesuada neque. Praesent pellentesque dui id tellus efficitur, ac hendrerit mi mollis. In euismod justo finibus, vulputate nisl at, tincidunt augue. Vestibulum laoreet mattis ante, ut auctor lectus egestas et. Etiam eget quam ac dolor commodo volutpat semper et augue.
+- `home/user-list`
+- `home/contatos-list`
 
-Proin consectetur iaculis enim, eu varius nunc ultricies vel. Donec ultrices finibus eros eu euismod. Nam eros nunc, dignissim vel mi vitae, mollis fringilla velit. Aliquam iaculis neque eget sem suscipit mollis. Nullam non sodales tortor. Nullam feugiat mollis nibh a vestibulum. Nunc risus diam, consectetur in suscipit et, dapibus at erat.
+Se adicionarmos o quantificador opcional `?` teremos 3 modos de acesso.
+
+Exemplo:
+
+```php
+   
+  Route::req('/home\/?(user-list|contatos-list)?/', 'main');
+
+```
+
+- `home/user-list`
+- `home/contatos-list`
+- `home`
+
+##### Recuperando Valores
+
+Para recuperar valores via URL precisamos isolar o nome da variável entre chaves no `$regex`. Veja:
+
+```php
+   
+  Route::req('/home\/{var_name}/', 'main');
+
+```
+
+E então essa variável ficará disponível em `Request::get('var_name')`.
+Se adicionarmos o quantificador opcional `?`. Exemplo:
+
+```php
+   
+  Route::req('/home\/?{var_name}?/', 'main');
+
+```
+
+O `Request::get('var_name')` poderá retornar `false`;

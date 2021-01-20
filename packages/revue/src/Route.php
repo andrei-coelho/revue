@@ -33,17 +33,23 @@ class Route {
             $vars = [];
             
             foreach ($data as $d) {
-                $vars[] = $d['slug'];
+                $vars[]['slug'] = $d['slug'];
                 $route = str_replace($d['to_replace'], $d['value'], $route);
             }
 
-            if(self::is_target($route, self::$request)){
+            if(preg_match($route, self::$request, $out)){
                 
-                Request::saveSlugGets($vars);
+                foreach ($vars as $k => $v) {
+                    if(isset($out[$k + 1])){
+                        $vars[$k]['value'] = $out[$k + 1];
+                    }
+                }
+
+                Request::saveSlugGet($vars);
                 self::$target = $target;
                 return;
 
-            } 
+            }
             
             return;
         }
@@ -71,21 +77,28 @@ class Route {
 
         if(self::is_regex($route)){
             
-            
             $data = self::tranform_data($route);
             $vars = [];
-            
+
             foreach ($data as $d) {
-                $vars[] = $d['slug'];
+                $vars[]['slug'] = $d['slug'];
                 $route = str_replace($d['to_replace'], $d['value'], $route);
             }
+            
 
-            if(self::is_target($route, self::$request)){
+            if(preg_match($route, self::$request, $out)){
                 
+                foreach ($vars as $k => $v) {
+                    if(isset($out[$k + 1])){
+                        $vars[$k]['value'] = $out[$k + 1];
+                    }
+                }
+
+                Request::saveSlugGet($vars);
                 self::$midware = $target;
                 return;
 
-            } 
+            }
             
             return;
         }
@@ -113,24 +126,21 @@ class Route {
 
     private static function tranform_data($reg){
 
-        preg_match_all('/{(\w+)}(!|\?)/', $reg, $out);
+        preg_match_all('/({(\w+)})(\?)?/', $reg, $out);
+        
         // create arrays
         $data     = [];
 
         foreach ($out[1] as $key => $var) {
             $data[] = [
                 "slug" => $var,
-                "to_replace" => $out[0][$key],
-                "value" => $out[2][$key] == "!" ? "[^\/]+" : "[^\/]*",
+                "to_replace" => $out[1][$key],
+                "value" => "([^\/]+)",
             ];
         }
 
         return $data;
 
-    }
-
-    private static function is_target($test, $target){
-        return preg_match($test, $target);
     }
 
     private static function is_regex($test){

@@ -34,13 +34,10 @@ class Request {
         return count($this->gets);
     }
 
-    public static function saveSlugGets(array $gets){
- 
-        foreach ($gets as $key => $slug) {
-
-            if($v = self::get($key)) {
-                @self::$instance->gets[$slug] = $v;
-            }
+    public static function saveSlugGet(array $gets){
+        
+        foreach ($gets as $var) {            
+            @self::$instance->gets[$var['slug']] = $var['value'];
         }
 
     }
