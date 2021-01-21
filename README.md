@@ -389,7 +389,8 @@ Para acessar a api, basta usar o objeto `Revue` com os métodos `get` ou  `post`
 Sintax:
 
 ```Javascript
-  Revue.get(route, callback)
+  Revue.get(route, callback) // get
+  Revue.post(route, data, callback) // post
 ```
 
 Exemplo:
@@ -514,10 +515,10 @@ use Revue\src\Model as Model;
 
 $users = Model::select("User")
           ->where([
-            ['id', '=', 5,] // grupo 1
+            ['id', '=', 5], // grupo 1
             'OR',
             [               // grupo 2
-              'id', '<', 10
+              'id', '<', 10,
               'AND',
               'id', '>', 1
             ] 
@@ -531,8 +532,6 @@ $users = Model::select("User")
 save new register
 
 ```php
-
 $user = new User("Andrei");
 $user -> save();
-
 ```

@@ -187,19 +187,21 @@ class Components implements ModuleInterface {
             }
         }
 
-        $scriptObjs = "<script> const URL = '".Config::url()."'; const Receive = {";
+        $scriptObjs = "<script> const URL = '".Config::url()."'; const Receive = { ";
         foreach(self::$ObjJsonList as $obj) $scriptObjs .= $obj->render();
         $scriptObjs = substr($scriptObjs, 0, -1)."}</script>";
         $html = array_pop($changed);
 
         if(file_exists("../app/components/index.html")){
 
-            $axios = Config::get('versions')['axios'];
+            $axios = Config::get('js-fixed')['axios'];
+            $vue = Config::get('js-fixed')['vue'];
             $html .= js(); 
             $index = file_get_contents("../app/components/index.html");
             $head  = self::getHead().css();
             $index = str_replace('{$scriptObjs}', $scriptObjs, $index);
             $index = str_replace('{$axios}', $axios, $index);
+            $index = str_replace('{$vue}', $vue, $index);
             $index = str_replace('{$head}', $head, $index);
             $html  = str_replace('{$body}', $html, $index);
             $scriptObjs = "";

@@ -43,7 +43,8 @@ pack:
   - revue
   - sqli
 
-versions:
+js-fixed:
   axios: 0.21.1
+  vue: 3.0.5
 
 ---
