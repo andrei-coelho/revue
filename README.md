@@ -75,21 +75,21 @@ Em uma url `https://www.domain.net/home` o pacote Revue vai procurar se existist
 
 O ciclo de vida de um módulo funciona da seguinte forma:
 
-![revue life cycle](life-cycle.jpg) 
+![revue life cycle](life-cycle.png) 
 
-#### Start
+### **Start**
 
 Cria o módulo e adiciona as rotas contiguradas
 
-#### Before Config
+### **Before Config**
 
 Se houver, chama um Middleware cadastrado.
 
-#### Config
+### **Config**
 
 Configura o módulo inserindo todos os arquivos necessários
 
-#### Render
+### **Render**
 
 Roda o componente e renderiza a resposta
 
@@ -215,10 +215,6 @@ Revue\modules\Components::register([
         "js"         => ["header"],
     ],
 
-    "menu" => [
-        "file"       => "menu",
-        "js"         => ["menu"],
-    ]
 ])
 ```
 
@@ -333,7 +329,7 @@ exemplo:
 
   self::export("user", [
     "login" => true,
-    "key"   => "my_key_generated_in_server"
+      "key" => "my_key_generated_in_server"
   ]);
 ```
 E no arquivo `public/js/file1.js` você poderá chamando o objeto `Revue`. veja:
@@ -343,12 +339,13 @@ E no arquivo `public/js/file1.js` você poderá chamando o objeto `Revue`. veja:
 ```
 Saída:
 
-```json
+```javascript
   {
-    login: true, 
-    key: "my_key_generated_in_server"
+    login : true, 
+      key : "my_key_generated_in_server"
   }
 ```
 
 --------------------
 # Module API
+
