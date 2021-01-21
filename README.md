@@ -466,6 +466,19 @@ $status = Service::call(
 );
 ````
 
+class example 
+
+```php 
+class EmailService extends Revue\src\Service {
+
+    public $key, $errado;
+
+    public function exec(){
+        return $this->key;
+    }
+}
+```
+
 --------------------
 # Model
 
