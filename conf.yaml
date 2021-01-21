@@ -42,5 +42,8 @@ modules:
 pack:
   - revue
   - sqli
-  
+
+versions:
+  axios: 0.21.1
+
 ---

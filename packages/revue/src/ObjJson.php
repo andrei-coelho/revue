@@ -22,18 +22,18 @@ class ObjJson {
 
     private function json($obj){
 
-        return $this->hot_json_encode($obj, 
+        return self::hot_json_encode($obj, 
             JSON_PRESERVE_ZERO_FRACTION | 
             JSON_PARTIAL_OUTPUT_ON_ERROR |
             JSON_UNESCAPED_UNICODE
         );
     }
 
-    private function hot_json_encode ($var, int $options = 0, int $depth = 512) {
-        return json_encode($this->transform_value($var), $options, $depth);
+    public static function hot_json_encode ($var, int $options = 0, int $depth = 512) {
+        return json_encode(self::transform_value($var), $options, $depth);
     }
     
-    private function hot_json_last_error(){
+    private static function hot_json_last_error(){
     
         switch (json_last_error()) {
     
@@ -62,28 +62,28 @@ class ObjJson {
     
     }
     
-    private function object_instance(string $class, array $json){
+    private static function object_instance(string $class, array $json){
     
         $reflex =  new ReflectionClass($class);
         $comment = $reflex -> getDocComment();
-        $inspector = $this->inspec_comments($comment);
+        $inspector = self::inspec_comments($comment);
         $bloquers = [];
     
         if($inspector['bound'] === false && ($parent = $reflex -> getParentClass()) !== false)
-            $bloquers = $this->get_inherited_block_values($parent, "DECODE");
+            $bloquers = self::get_inherited_block_values($parent, "DECODE");
     
-        return $this->set_values($reflex, $json, $inspector, $bloquers);
+        return self::set_values($reflex, $json, $inspector, $bloquers);
         
     }
     
-    private function get_inherited_block_values(\ReflectionClass $parent, string $type){
+    private static function get_inherited_block_values(\ReflectionClass $parent, string $type){
     
         $comment = $parent -> getDocComment();
-        $inspector = $this->inspec_comments($comment);
+        $inspector = self::inspec_comments($comment);
         $bloquers = [];
     
         if($inspector['bound'] === false && ($parentP = $parent -> getParentClass()) !== false)
-            $bloquers = $this->get_inherited_block_values($parentP, $type);
+            $bloquers = self::get_inherited_block_values($parentP, $type);
         
         foreach($inspector['block'] as $field => $ty)
             if($ty == $type || $ty == "ALL") $bloquers[] = $field;
@@ -91,7 +91,7 @@ class ObjJson {
         return $bloquers;
     }
     
-    private function set_values(\ReflectionClass $reflex, array $json, array $inspector, array $bloquers){
+    private static function set_values(\ReflectionClass $reflex, array $json, array $inspector, array $bloquers){
     
         $obj = $reflex -> newInstanceWithoutConstructor();
         
@@ -118,7 +118,7 @@ class ObjJson {
                     case "float": $value = (float)$value; break;
                     case "bool": $value = (bool)$value; break;
                     case "array": $value = (array)$value; break;
-                    default: $value = $this->object_instance($type, $value);
+                    default: $value = self::object_instance($type, $value);
                 }
             }
     
@@ -145,7 +145,7 @@ class ObjJson {
         return substr($str,0,-1) . "]";
     }
     
-    private function inspec_comments($comment){
+    private static function inspec_comments($comment){
     
         $inspec = [
             "kind" => [],
@@ -192,29 +192,29 @@ class ObjJson {
         return $inspec;
     }
     
-    private function transform_value ($val) {
+    private static function transform_value ($val) {
     
         if (is_array($val))
-            $newValue = $this->read_array($val);
+            $newValue = self::read_array($val);
         else
         if (is_object($val))
-            $newValue = $this->read_object($val);
+            $newValue = self::read_object($val);
         else
             $newValue = $val;
     
         return $newValue;
     }
     
-    private function read_object (Object $obj) {
+    private static function read_object (Object $obj) {
         
         $nObj = get_class($obj); 
         $reflex =  new \ReflectionClass($obj);
-        $inspector = $this->inspec_comments($reflex -> getDocComment());
+        $inspector = self::inspec_comments($reflex -> getDocComment());
         $newArray = [];
         $bloquers = [];
     
         if($inspector['bound'] === false && ($parent = $reflex -> getParentClass()) !== false)
-            $bloquers = $this->get_inherited_block_values($parent, "ENCODE");
+            $bloquers = self::get_inherited_block_values($parent, "ENCODE");
     
         $props = $reflex -> getProperties();
     
@@ -226,18 +226,18 @@ class ObjJson {
                     continue;
     
             $prop -> setAccessible(true);
-            $newArray[$prop -> name] = $this->transform_value($prop -> getValue($obj));
+            $newArray[$prop -> name] =self::transform_value($prop -> getValue($obj));
     
         }
     
         return $newArray;
     }
     
-    private function read_array (array $arr) {
+    private static function read_array (array $arr) {
     
         $newArray = [];
         foreach ($arr as $key => $val)
-            $newArray[$key] = $this->transform_value($val);
+            $newArray[$key] = self::transform_value($val);
     
         return $newArray;
     

@@ -1,27 +1,10 @@
 
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
 <script>
-  
-var getJSON = function(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-      var status = xhr.status;
-      callback(status, xhr.response);
-    };
-    xhr.send();
-};
 
-getJSON('http://localhost/revue/api/', (status, res) => {
+  Revue.get('home/lala', (res, code) =>{
     console.log(res);
-})
+  })
+
 </script>
 
 <header>Im a header</header>

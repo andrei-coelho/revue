@@ -23,9 +23,9 @@ Revue is very simple to use. Enjoy!
       - [Controllers](#Components---Controller)
       - [Middlewares](#about-middlewares)
   -  [Module API](#module-api)
-      - [Route](#route)
-      - [Controllers](#controllers)
-      - [Middlewares](#middlewares)
+      - [Route](#api-route)
+      - [Controllers](#api-controller)
+      - [Middlewares](#about-middlewares)
   -  [Service](#service)
   -  [Model](#model)
   -  [Public](#public)
@@ -335,7 +335,7 @@ exemplo:
 E no arquivo `public/js/file1.js` você poderá chamando o objeto `Revue`. veja:
 
 ```javascript
-  console.log(Revue.user);
+  console.log(Receive.user);
 ```
 Saída:
 
@@ -349,3 +349,177 @@ Saída:
 --------------------
 # Module API
 
+Módulo API que renderiza JSON em sua resposta.
+
+## API Routes
+
+Da mesma forma que qualquer módulo é necessário configurar rotas no arquivo `routes.php`. Porém, o target são os controllers. Exemplo:
+
+```php
+Route::req('/api\/user\/list/', 'user');
+```
+
+Você pode ignorar parte da rota para que não fique repetitivo. Exemplo:
+
+```php
+Route::ignore("api"); # ignore api in URL
+
+Route::req('/user\/list/', 'user');
+```
+
+## API Controller
+
+E para realizar uma resposta em json no controller:
+
+```php
+# api/controller/user
+
+self::response([
+  new User("Andrei"),
+  new User("Gustavo")
+]);
+```
+
+- ## Acessando a Resposta no Frontend
+
+O Revue se encarrega de fazer todas as configurações para que você não tenha que se preocupar com bibliotecas e constantes dele.
+
+Para acessar a api, basta usar o objeto `Revue` com os métodos `get` ou  `post`. 
+
+Sintax:
+
+```Javascript
+  Revue.get(route, callback)
+```
+
+Exemplo:
+
+```Javascript
+  Revue.get('user/list', (response, code) => {
+    console.log(response)
+  })
+```
+
+Saída:
+
+```Javascript
+  [
+    {nome: "Andrei", nick:"Super man"},
+    {nome: "Gustavo", nick:"Hulk"}
+  ]
+```
+
+Você pode bloquear atributos da resposta nos objetos criados com comentários nas classes usando a diretiva `@block`. Veja um exemplo:
+
+```php
+/**
+ * @block name
+ */
+class User extends Revue\src\Model {
+
+  public $name;
+  public $nick;
+
+}
+```
+
+Saída:
+
+```Javascript
+  [
+    {nick:"Super man"},
+    {nick:"Hulk"}
+  ]
+```
+
+- ## Reposta de erro
+
+Eventualmente você precisará enviar mensagens de erro, para isso, basta usar o seguinte código no seu controller:
+
+```php
+# api/controller/user
+
+self::error(404); # erro 404 - not found
+```
+
+--------------------
+# Service
+
+call service
+
+```php
+# sintax
+Service::call(
+  string $class, 
+  string $function, 
+  array $data
+);
+
+# example
+$status = Service::call(
+  "EmailService", 
+  "exec", 
+  [
+    "key" => "12345",
+    "errado" => "nao existe"
+  ]
+);
+````
+
+--------------------
+# Model
+
+full example structure:
+
+```php
+/**
+ * @model-table: usuario
+ */
+class User extends Revue\src\Model {
+
+    /**
+     * @model-attr: nome
+     */
+    public $nomeUser;
+
+    /**
+     * @model-join: Endereco
+     */
+    public $address = [
+        "limit" => 2,
+        "order" => "id"
+    ];
+
+}
+
+```
+full example select:
+
+```php
+
+use Revue\src\Model as Model;
+
+$users = Model::select("User")
+          ->where([
+            ['id', '=', 5,] // grupo 1
+            'OR',
+            [               // grupo 2
+              'id', '<', 10
+              'AND',
+              'id', '>', 1
+            ] 
+          ])
+          ->order("id DESC")
+          ->limit('1,3')
+          ->get();
+
+// .. WHERE (id = 5) OR (id < 10 AND id > 1) 
+```
+save new register
+
+```php
+
+$user = new User("Andrei");
+$user -> save();
+
+```

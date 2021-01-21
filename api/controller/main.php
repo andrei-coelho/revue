@@ -12,8 +12,6 @@ $usuarios = Model::select("User")
             ->order("id DESC")
             ->get();
 
-
-            
-self::response($usuarios);
+ self::response($usuarios);
 
 

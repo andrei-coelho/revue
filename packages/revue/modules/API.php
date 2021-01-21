@@ -32,7 +32,7 @@ class API implements ModuleInterface {
     public static function render(){
 
         if(self::$response){
-            echo json_encode(self::$response, 
+            echo \Revue\src\ObjJson::hot_json_encode(self::$response, 
                 JSON_PRETTY_PRINT | 
                 JSON_PRESERVE_ZERO_FRACTION | 
                 JSON_PARTIAL_OUTPUT_ON_ERROR |

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {$scriptObjs}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/{$axios}/axios.min.js"></script>
+    <script>
+    const Revue = {
+    get(r,c){axios.get(URL+'api/'+r).then(res=>{res.status?res.data.error?c(null,res.data.code,false):c(res.data.data,res.data.code,false):c(null,res.status,false);}).catch(e =>c(null,000,e))},
+    post(r,d,c){axios.post(URL+r,d).then(re=>{re.status?re.data.error?c(null,re.data.code,false):c(re.data.data,re.data.code,false):c(null,re.status,false);}).catch(e=>c(null,000,e))}
+    }
+    </script>
+    {$head}
+</head>
+<body>
+    {$body}
+</body>
+</html>

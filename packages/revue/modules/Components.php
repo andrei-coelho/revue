@@ -18,6 +18,9 @@ class Components implements ModuleInterface {
     private static $tempData = []; // variaveis que serão usadas no html
     private static $ObjJsonList = []; // lista de ObjJson para ser gerado o json final
 
+    private static $description = false;
+    private static $title = false;
+
     public static function register(array $data){
         /** Example:
             [
@@ -184,11 +187,26 @@ class Components implements ModuleInterface {
             }
         }
 
-        $scriptObjs = "<script> const URL = '".Config::url()."'; const Revue = {";
+        $scriptObjs = "<script> const URL = '".Config::url()."'; const Receive = {";
         foreach(self::$ObjJsonList as $obj) $scriptObjs .= $obj->render();
+        $scriptObjs = substr($scriptObjs, 0, -1)."}</script>";
+        $html = array_pop($changed);
 
-        echo substr($scriptObjs, 0, -1)."}</script>".array_pop($changed);
+        if(file_exists("../app/components/index.html")){
 
+            $axios = Config::get('versions')['axios'];
+            $html .= js(); 
+            $index = file_get_contents("../app/components/index.html");
+            $head  = self::getHead().css();
+            $index = str_replace('{$scriptObjs}', $scriptObjs, $index);
+            $index = str_replace('{$axios}', $axios, $index);
+            $index = str_replace('{$head}', $head, $index);
+            $html  = str_replace('{$body}', $html, $index);
+            $scriptObjs = "";
+
+        }
+        
+        echo $scriptObjs.$html;
     }
 
     public static function js_files(){
@@ -197,7 +215,7 @@ class Components implements ModuleInterface {
         foreach (self::$js as $js) {
             $files[] = Config::url()."js/".$js.".js";
         }
-
+        self::$js = [];
         return $files;
     }
 
@@ -207,8 +225,25 @@ class Components implements ModuleInterface {
         foreach (self::$css as $css) {
             $files[] = Config::url()."css/".$css.".css";
         }
-        
+        self::$css = [];
         return $files;
+    }
+
+    public static function description($description) {
+        if(!self::$description)
+        self::$description = $description;
+    }
+
+    public static function title($title) {
+        if(!self::$title)
+        self::$title = $title;
+    }
+
+    public static function getHead(){
+        $str = "";
+        if(self::$title)$str .= "<title>".self::$title."</title>";
+        if(self::$description)$str .= '<meta name="description" content="'.self::$description.'">';
+        return $str;
     }
 
 }
