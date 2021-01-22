@@ -204,6 +204,7 @@ class Components implements ModuleInterface {
             $index = str_replace('{$vue}', $vue, $index);
             $index = str_replace('{$head}', $head, $index);
             $html  = str_replace('{$body}', $html, $index);
+            $html  = str_replace('{$URL}', Config::url(), $html);
             $scriptObjs = "";
 
         }

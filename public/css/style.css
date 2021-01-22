@@ -1,0 +1,63 @@
+* {
+    font-family: Consolas, monaco, monospace;
+    margin: 0 auto;
+}
+
+.mt {
+    margin-top: 20px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+img.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo {
+    width: 100px;
+    margin-top: 40px;
+}
+
+h2, p {
+    margin-top: 3px;
+    text-align: center;
+    color:#5B5B5C;
+}
+
+.shields {
+    padding-top: 30px;
+    text-align: center;
+}
+
+@media (min-width: 0px) {
+    .shields {
+        width: 98%;
+    }
+}
+
+@media (min-width: 576px) {
+    .shields {
+        width: 80%;
+    }
+}
+
+@media (min-width: 768px) {
+    .shields {
+        width: 70%;
+    }
+}
+
+@media (min-width: 992px) {
+    .shields {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1200px) {
+
+}

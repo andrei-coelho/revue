@@ -6,6 +6,8 @@
 
 Revue\modules\Components::register([
     "home" => [
+        "controller" => "home",
         "file"       => "home",
+        "css"        => ['style']
     ],
 ]);
