@@ -3,6 +3,7 @@
 namespace Revue\modules;
 
 use Revue\src\ObjJson as ObjJson;
+use Revue\src\Revue as Revue;
 use Revue\Config as Config;
 
 class Components implements ModuleInterface {
@@ -131,9 +132,12 @@ class Components implements ModuleInterface {
 
             }
             
+            return;
 
         } 
 
+        self::config('error404');
+        
     }
 
 
@@ -193,9 +197,10 @@ class Components implements ModuleInterface {
         $html = array_pop($changed);
 
         if(file_exists("../app/components/index.html")){
-
-            $axios = Config::get('js-fixed')['axios'];
-            $vue = Config::get('js-fixed')['vue'];
+           
+            $jsFixed = Config::get('js-fixed');
+            $axios = isset($jsFixed['axios']) ? $jsFixed['axios'] : "";
+            $vue = isset($jsFixed['vue']) ? $jsFixed['vue'] : ""; 
             $html .= js(); 
             $index = file_get_contents("../app/components/index.html");
             $head  = self::getHead().css();
@@ -215,8 +220,9 @@ class Components implements ModuleInterface {
     public static function js_files(){
 
         $files = [];
+        $version = !Config::is_in_production() ? "?v=".date("Ymdhis") : "";
         foreach (self::$js as $js) {
-            $files[] = Config::url()."js/".$js.".js";
+            $files[] = Config::url()."js/".$js.".js$version";
         }
         self::$js = [];
         return $files;
@@ -225,8 +231,9 @@ class Components implements ModuleInterface {
     public static function css_files(){
 
         $files = [];
+        $version = !Config::is_in_production() ? "?v=".date("Ymdhis") : "";
         foreach (self::$css as $css) {
-            $files[] = Config::url()."css/".$css.".css";
+            $files[] = Config::url()."css/".$css.".css$version";
         }
         self::$css = [];
         return $files;
@@ -247,6 +254,13 @@ class Components implements ModuleInterface {
         if(self::$title)$str .= "<title>".self::$title."</title>";
         if(self::$description)$str .= '<meta name="description" content="'.self::$description.'">';
         return $str;
+    }
+
+    public static function execComponent($component){
+        self::$toRender = [];
+        self::config($component);
+        self::render();
+        Revue::close();
     }
 
 }

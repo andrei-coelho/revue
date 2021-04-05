@@ -19,3 +19,11 @@ function css(){
 function url(string $url = ""){
     return Revue\Config::url().$url;
 }
+
+function error($num = 404){
+    Revue\modules\Components::execComponent('error'.$num);
+}
+
+function dateToBr($data){
+    return date('d/m/Y', strtotime($data));
+}

@@ -37,7 +37,7 @@ class Request {
     public static function saveSlugGet(array $gets){
         
         foreach ($gets as $var) {            
-            @self::$instance->gets[$var['slug']] = $var['value'];
+            self::$instance->gets[substr($var['slug'], 1, strlen($var['slug']) - 2)] = $var['value'];
         }
 
     }
